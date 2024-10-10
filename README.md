@@ -1,5 +1,5 @@
 # Projeto-Clinica
-Mudar o arquivo "Documentospacientes.vue" que está em 'js'-> 'Pages'
+Mudar o arquivo "Documentospacientes.vue" que está em 'resources'-> 'js'-> 'Pages'
 ### Descrição do Projeto
 - Somos uma clínica de psicologia e necessitamos desenvolver um sistema que seja usado pelos nossos clientes para nos encontrarem na internet e também para nos conhecerem! Esse sistema também deve ser utilizado pelos profissionais da clínica (psicólogos e atendentes), existindo a possibilidade de consultar e acrescentar informações dos clientes (cada profissional com sua devida permissão de acesso e visualização).
 
