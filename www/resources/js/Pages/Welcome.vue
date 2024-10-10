@@ -3,7 +3,13 @@
     <Navbar />
 
     <div class="container mx-auto px-4 py-12">
-      <h1 class="text-5xl font-bold text-gray-800 text-center mb-8">Clínica Veterinária</h1>
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Clínica Veterinária</h1>
+
+         <!-- Imagem redonda -->
+      <div class="flex justify-center mb-8">
+        <img src="https://i.pinimg.com/236x/f4/5d/22/f45d22ca31d82fd0bf7101dda9e9e051.jpg" alt="Clínica Veterinária" class="w-40 h-40 rounded-full">
+      </div>
 
       <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
         <p class="text-lg text-gray-700 leading-relaxed mb-6 text-center">
@@ -31,60 +37,64 @@
           <p class="text-gray-700">Encontre seu novo melhor amigo!</p>
         </div>
       </div>
-
-      <div class="mt-8">
-        <strong class="text-xl">Entre em contato</strong>
-        <form @submit.prevent="sendEmail" class="mt-4 space-y-4">
-          <div>
-            <label for="email" class="block text-gray-700">Email:</label>
-            <input type="email" v-model="email" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
+          <div class="mt-8">
+            <strong>Entre em contato</strong>
+            <form @submit.prevent="sendEmail" class="mt-4">
+              <div class="mb-4">
+                <label for="email" class="block text-gray-700, text-center">Email:</label>
+                <input type="email" v-model="email" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
+              </div>
+              <div class="mb-4">
+                <label for="subject" class="block text-gray-700, text-center">Assunto:</label>
+                <input type="text" v-model="subject" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
+              </div>
+              <div class="mb-4">
+                <label for="message" class="block text-gray-700, text-center">Mensagem:</label>
+                <textarea v-model="message" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"></textarea>
+              </div>
+              <button type="submit" class="w-full bg-green-500 text-white px-4 py-2 rounded-md">Enviar</button>
+            </form>        
           </div>
-          <div>
-            <label for="subject" class="block text-gray-700">Assunto:</label>
-            <input type="text" v-model="subject" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
-          </div>
-          <div>
-            <label for="message" class="block text-gray-700">Mensagem:</label>
-            <textarea v-model="message" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"></textarea>
-          </div>
-          <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-500 transition">Enviar</button>
-        </form>
       </div>
     </div>
-
-    <p id="contatos" class="mt-8">
-      <Fimdapagina />
-    </p>
+          <p id="contatos" class="mt-8">
+          <Fimdapagina />
+          </p>
+          
   </div>
 </template>
 
 <script setup>
-import Navbar from './Navbar.vue';
-import Fimdapagina from './Fimdapagina.vue';
-import { ref } from 'vue';
-import axios from 'axios';
+  import Navbar from './Navbar.vue';
+  import Fimdapagina from './Fimdapagina.vue';
+  import { Head, Link } from '@inertiajs/inertia-vue3';
+  import { ref } from 'vue';
 
-const email = ref('');
-const subject = ref('');
-const message = ref('');
+  defineProps({
+  canLogin: Boolean,
+  canRegister: Boolean,
+  laravelVersion: String,
+  phpVersion: String,
+  });
 
-const sendEmail = async () => {
-  try {
-    const response = await axios.post('/send-email', {
-      email: email.value,
-      subject: subject.value,
-      message: message.value,
-    });
-    alert(response.data.message);
-  } catch (error) {
-    console.error('Erro ao enviar email:', error);
-    alert('Erro ao enviar email');
-  }
-};
+  const email = ref('');
+  const subject = ref('');
+  const message = ref('');
+
+  const sendEmail = async () => {
+    try {
+      const response = await axios.post('/send-email', {
+        email: email.value,
+        subject: subject.value,
+        message: message.value,
+      });
+      alert(response.data.message);
+    } catch (error) {
+      console.error('Erro ao enviar email:', error);
+      alert('Erro ao enviar email');
+    }
+  };
+
+
+
 </script>
-
-<style scoped>
-.container {
-  /* Ajuste a largura e as margens conforme necessário */
-}
-</style>
