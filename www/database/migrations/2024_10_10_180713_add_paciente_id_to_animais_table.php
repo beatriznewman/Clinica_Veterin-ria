@@ -14,7 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('animais', function (Blueprint $table) {
-            $table->foreignId('paciente_id')->nullable()->constrained('pacientes')->onDelete('cascade');
+            $table->unsignedBigInteger('paciente_id')->nullable()->after('id');
+    
+            // Chave estrangeira
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
         });
         
     }

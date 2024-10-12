@@ -9,11 +9,12 @@ class Animal extends Model
     use HasFactory;
 
     protected $table = 'animais';
-    protected $fillable = ['especie', 'nome'];
+    protected $fillable = ['nome', 'especie', 'paciente_id'];
 
-    public function user()
+    // Relacionamento com Paciente
+    public function paciente()
     {
-        return $this->belongsTo(User::class, 'paciente_id');
+        return $this->belongsTo(Paciente::class);
     }
 
     public function consulta()

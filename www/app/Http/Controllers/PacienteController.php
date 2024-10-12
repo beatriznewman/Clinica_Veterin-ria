@@ -21,7 +21,7 @@ class PacienteController extends Controller
 {
     public function create()
     {
-        return Inertia::render('Cadastro');
+        return Inertia::render('Paciente');
     }
 
     public function store(Request $request)
@@ -40,10 +40,9 @@ class PacienteController extends Controller
             'username.unique' => 'Este username já está em uso.',
             'password.required' => 'A password é obrigatória.',
             'password.min' => 'A password deve ter pelo menos 6 caracteres.',
-            'animais.*.especie.required' => 'A espécie do animal é obrigatória.',
-            'animais.*.nome.required' => 'O nome do animal é obrigatório.',
         ];
 
+        // Validação dos dados
         $request->validate([
             'nome' => 'required|string|max:255',
             'cep' => 'required|string|size:8',
@@ -54,22 +53,13 @@ class PacienteController extends Controller
             'telefone' => 'required|string|max:15',
             'username' => 'required|string|max:255|unique:users',
             'password' => 'required|min:6',
-            'animais' => 'array', // Adiciona a validação para um array de animais
-            'animais.*.especie' => 'required|string|max:255', // Validação para cada animal
-            'animais.*.nome' => 'required|string|max:255',
         ], $mensagens);
 
         DB::beginTransaction();
         try {
-            $paciente = Paciente::create([
-                'nome' => $request->nome,
-                'cep' => $request->cep,
-                'endereco' => $request->endereco,
-                'bairro' => $request->bairro,
-                'cidade' => $request->cidade,
-                'estado' => $request->estado,
-                'telefone' => $request->telefone,
-            ]);
+            $paciente = Paciente::create($request->only([
+                'nome', 'cep', 'endereco', 'bairro', 'cidade', 'estado', 'telefone'
+            ]));
 
             $user = User::create([
                 'nome' => $request->nome,
@@ -79,26 +69,74 @@ class PacienteController extends Controller
             ]);
 
             $user->assignRole('cliente');
+
             event(new Registered($user));
 
-            // Se houver animais, crie-os no banco de dados
-            if (isset($request->animais)) {
-                foreach ($request->animais as $animalData) {
-                    // Supondo que você tenha um modelo Animal relacionado
-                    $paciente->animais()->create($animalData);
-                }
-            }
-
             DB::commit();
-
-            return response()->json(['message' => 'Paciente cadastrado com sucesso!']);
+            return response()->json(['message' => 'Paciente cadastrado com sucesso!', 'paciente' => $paciente]);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['message' => 'Erro ao cadastrar paciente.'], 500);
         }
     }
 
+    public function storeind(Request $request)
+    {
+        $mensagens = [
+            'nome.required' => 'O nome é obrigatório.',
+            'cep.required' => 'O CEP é obrigatório.',
+            'cep.size' => 'O CEP deve ter 8 caracteres.',
+            'endereco.required' => 'O endereço é obrigatório.',
+            'bairro.required' => 'O bairro é obrigatório.',
+            'cidade.required' => 'A cidade é obrigatória.',
+            'estado.required' => 'O estado é obrigatório.',
+            'telefone.required' => 'O telefone é obrigatório.',
+            'telefone.max' => 'O telefone deve ter no máximo 15 caracteres.',
+            'username.required' => 'O username é obrigatório.',
+            'username.unique' => 'Este username já está em uso.',
+            'password.required' => 'A password é obrigatória.',
+            'password.min' => 'A password deve ter pelo menos 6 caracteres.',
+        ];
 
+        // Validação dos dados
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'cep' => 'required|string|size:8',
+            'endereco' => 'required|string|max:255',
+            'bairro' => 'required|string|max:255',
+            'cidade' => 'required|string|max:255',
+            'estado' => 'required|string|max:2',
+            'telefone' => 'required|string|max:15',
+            'username' => 'required|string|max:255|unique:users',
+            'password' => 'required|min:6',
+        ], $mensagens);
+
+        DB::beginTransaction();
+        try {
+            $paciente = Paciente::create($request->only([
+                'nome', 'cep', 'endereco', 'bairro', 'cidade', 'estado', 'telefone'
+            ]));
+
+            $user = User::create([
+                'nome' => $request->nome,
+                'username' => $request->username,
+                'password' => Hash::make($request->password),
+                'paciente_id' => $paciente->id,
+            ]);
+
+            $user->assignRole('cliente');
+
+            event(new Registered($user));
+
+            DB::commit();
+            return Inertia::location(route('pacientesind'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return Inertia::render('ErrorPage', [
+                'message' => 'Erro ao cadastrar paciente.',
+            ])->withStatus(500);
+        }
+    }
     public function index()
     {
         return Paciente::all();

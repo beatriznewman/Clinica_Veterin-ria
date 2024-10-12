@@ -22,7 +22,7 @@ class Paciente extends Authenticatable
         return $this->hasMany(Consulta::class, 'paciente_id');
     }
 
-    public function animal()
+    public function animais()
     {
         return $this->hasMany(Animal::class);
     }

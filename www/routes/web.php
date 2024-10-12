@@ -7,7 +7,10 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\NotificacaoController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,10 +46,19 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 //Rota para vue Cadastro de Paciente
-Route::get('/cadastro', function () {
-    return Inertia::render('Cadastro');
-})->name('cadastro');
+Route::get('/cadastropaciente', function () {
+    return Inertia::render('Paciente');
+})->name('cadastropaciente');
 
+// Rota para cadastro independente
+Route::get('/cadastro-paciente', function () {
+    return Inertia::render('PacienteIndependente');
+})->name('cadastro.paciente');
+
+//Rota para vue Cadastro de Paciente
+Route::get('/cadastroanimal', function () {
+    return Inertia::render('Cadastro');
+})->name('cadastroanimal');
 //Rota para vue Lista de Paciente
 Route::get('/listapaciente', function () {
     return Inertia::render('Listapaciente');
@@ -66,9 +78,28 @@ Route::get('/adocao', function () {
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
-//Rota para Criar Paciente
+
+// Rota para cadastro de paciente (tutor) independentemente
+Route::get('pacientesind', [PacienteController::class, 'createind'])->name('pacientesind.create');
+Route::post('/pacientesind', [PacienteController::class, 'storeind'])->name('pacientesind.store');
 Route::get('pacientes', [PacienteController::class, 'create'])->name('pacientes.create');
 Route::post('/pacientes', [PacienteController::class, 'store'])->name('pacientes.store');
+
+Route::get('/cadastro-animal', [AnimalController::class, 'create'])->name('animal.create');
+Route::post('/cadastro-animal', [AnimalController::class, 'store'])->name('animal.store');
+
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/animais', [AnimalController::class, 'index']);
+
+// Rota para exibir formulário de cadastro de paciente
+Route::get('/pacientes/cadastrar', function () {
+    return view('Paciente'); // Arquivo Vue onde está o formulário de cadastro de paciente
+})->name('pacientes.form');
+
+// Rota para exibir formulário de cadastro de animais
+Route::get('/animais/cadastrar', function () {
+    return view('Cadastro'); // Arquivo Vue onde está o formulário de cadastro de animais
+})->name('animais.form');
 
 //Rota para Consultas
 Route::get('/agendar-consulta', [ConsultaController::class, 'create'])->name('consultas.create');
@@ -76,10 +107,6 @@ Route::post('/consultas', [ConsultaController::class, 'store'])->name('consultas
 Route::get('/historico-consultas', [ConsultaController::class, 'historico'])->name('consultas.historico');
 Route::get('/consultas-futuras', [ConsultaController::class, 'consultar'])->name('consultas.futuras');
 
-//Rota para Editar info do Paciente
-Route::get('/pacientes/create', [PacienteController::class, 'create'])->name('pacientes.create');
-Route::post('/pacientes', [PacienteController::class, 'store'])->name('pacientes.store');
-Route::put('/pacientes/{id}', [PacienteController::class, 'update']); // Rota de atualização
 
 //Rota do MailTrap
 Route::post('/send-email', [ContactController::class, 'sendEmail']);
@@ -91,11 +118,6 @@ Route::get('/info', function () {
 
 Route::get('/consultas', [ConsultaController::class, 'index']);
 Route::put('/consultas/{id}', [ConsultaController::class, 'update']);
-
-//Rota de Rensagens
-Route::get('/Cadastroanimal', function () {
-    return Inertia::render('Cadastroanimal');
-})->name('cadastroanimal');
 
 Route::get('/allconsultas', [ConsultaController::class, 'allConsultas']);
 Route::post('/paciente-chegou', [PacienteController::class, 'pacienteChegou']);

@@ -49,12 +49,16 @@ const submit = () => {
             <a href="/" class="underline text-sm text-gray-600 hover:text-gray-900">
                     Voltar para home do site
             </a>
+            <a :href="route('cadastro.paciente')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                    Cadastre-se
+            </a>
 
             <div class="flex items-center justify-end mt-4">
                 <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Login
                 </PrimaryButton>
             </div>
+            
         </form>
     </GuestLayout>
 </template>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('especie');
             $table->string('nome');
+            $table->foreignId('paciente_id')->nullable()->constrained('pacientes');
             $table->timestamps();
         });
     }
