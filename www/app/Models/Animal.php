@@ -8,7 +8,7 @@ class Animal extends Model
 {
     use HasFactory;
 
-    protected $table = 'animais';
+    protected $table = 'animals';
     protected $fillable = ['nome', 'especie', 'paciente_id'];
 
     // Relacionamento com Paciente

@@ -23,7 +23,7 @@
                     </div>
 
                     <form @submit.prevent="cadastrarAnimais">
-                        <div v-for="(animal, index) in animais" :key="index" class="animal-entry mb-2"> <!-- Reduzido para mb-2 -->
+                        <div v-for="(animal, index) in animals" :key="index" class="animal-entry mb-2"> <!-- Reduzido para mb-2 -->
                             <h3>Animal {{ index + 1 }}</h3> <!-- Título para cada animal -->
                             
                             <div class="mt-2"> <!-- Reduzido para mt-2 -->
@@ -78,7 +78,7 @@ export default {
     },
     data() {
         return {
-            animais: [
+            animals: [
                 {
                     especie: '',
                     nome: '',
@@ -109,27 +109,27 @@ export default {
         },
         atualizarPacienteId(index) {
             // Se a opção "Sem Tutor" for selecionada, setar paciente_id como null
-            if (this.animais[index].paciente_id === "null") {
-                this.animais[index].paciente_id = null;
+            if (this.animals[index].paciente_id === "null") {
+                this.animals[index].paciente_id = null;
             }
         },
         adicionarAnimal() {
             // Adiciona um novo objeto de animal à lista
-            this.animais.push({
+            this.animals.push({
                 especie: '',
                 nome: '',
                 paciente_id: null,
             });
         },
         removerAnimal(index) {
-            this.animais.splice(index, 1); // Remover animal na posição index
+            this.animals.splice(index, 1); // Remover animal na posição index
         },
         async cadastrarAnimais() {
             this.message = '';
             this.errormessage = ''; // Corrigido para errormessage
             try {
                 // Itera sobre a lista de animais e envia cada um
-                for (const animal of this.animais) {
+                for (const animal of this.animals) {
                     const response = await axios.post('/cadastro-animal', {
                         especie: animal.especie,
                         nome: animal.nome,
@@ -139,7 +139,7 @@ export default {
                 }
                 this.message = 'Animais cadastrados com sucesso!'; // Mensagem de sucesso
                 // Limpar a lista após o cadastro
-                this.animais = [{
+                this.animals = [{
                     especie: '',
                     nome: '',
                     paciente_id: null,

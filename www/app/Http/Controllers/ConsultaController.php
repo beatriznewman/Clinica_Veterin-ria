@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Consulta;
 use App\Models\User;
+use App\Models\Animal;
 use Inertia\Inertia;
 use Carbon\Carbon;
 
@@ -13,10 +14,15 @@ class ConsultaController extends Controller
 {
     public function create()
     {
+        $user = auth()->user();
+
         $users = User::role('veterinario')->get(); // retorna todos os usuários com a role 'veterinario'
         
+        $animals = Animal::where('paciente_id', $user->paciente_id)->get();
+
         return Inertia::render('AgendarConsulta', [
             'users' => $users,
+            'animals' => $animals,
             'success' => session('success'),
             'error' => session('error')
         ]);
@@ -27,6 +33,7 @@ class ConsultaController extends Controller
         // Validar os dados do formulário
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
+            'animal_id' => 'required|exists:animals,id',
             'data' => 'required|date',
             'horario_inicio' => 'required|date_format:H:i',
             'horario_fim' => 'required|date_format:H:i',
@@ -82,6 +89,7 @@ class ConsultaController extends Controller
         Consulta::create([
             'paciente_id' => auth()->user()->paciente_id,// Utiliza o ID do paciente logado
             'user_id' => $request->user_id,
+            'animal_id' => $request->animal_id,
             'data' => $request->data,
             'horario_inicio' => $request->horario_inicio,
             'horario_fim' => $request->horario_fim,

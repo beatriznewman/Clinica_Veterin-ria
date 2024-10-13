@@ -9,11 +9,16 @@ class Consulta extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['paciente_id', 'user_id', 'data', 'horario_inicio', 'horario_fim', 'informacao'];
+    protected $fillable = ['paciente_id', 'user_id', 'animal_id', 'data', 'horario_inicio', 'horario_fim', 'informacao'];
 
     public function paciente()
     {
         return $this->belongsTo(Paciente::class, 'paciente_id');
+    }
+
+    public function animal()
+    {
+        return $this->belongsTo(animal::class, 'animal_id');
     }
 
     public function user()

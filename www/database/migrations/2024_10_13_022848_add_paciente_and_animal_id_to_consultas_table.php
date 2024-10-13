@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('animais', function (Blueprint $table) {
-            $table->unsignedBigInteger('paciente_id')->nullable()->after('id');
-    
-            // Chave estrangeira
-            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
+        Schema::table('consultas', function (Blueprint $table) {
+            $table->foreignId('animal_id')->constrained();
+            $table->foreignId('paciente_id')->constrained();
+            $table->foreignId('user_id')->constrained();
         });
-        
     }
 
     /**
@@ -29,9 +27,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('animais', function (Blueprint $table) {
+        Schema::table('consultas', function (Blueprint $table) {
+            $table->dropForeign(['animal_id']);
             $table->dropForeign(['paciente_id']);
-            $table->dropColumn('paciente_id');
+            $table->dropForeign(['user_id']);
         });
     }
 };
