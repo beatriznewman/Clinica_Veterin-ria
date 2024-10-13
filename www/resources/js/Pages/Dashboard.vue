@@ -27,8 +27,8 @@ import { Head } from '@inertiajs/inertia-vue3';
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
-                            <a href="/register" class="text-black-600 hover:text-black-800 font-bold text-lg">Registro de veterinário</a>
-                            <h1 class="ml-4 mt-2">Clique aqui e faça o registro de novos veterinários.</h1>
+                            <a href="/register" class="text-black-600 hover:text-black-800 font-bold text-lg">Registro de Veterinário e Secretaria</a>
+                            <h1 class="ml-4 mt-2">Clique aqui e faça o registro de novos veterinários e secretarias.</h1>
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@ import { Head } from '@inertiajs/inertia-vue3';
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
-                            <a :href="route('cadastroanimal')" class="text-black-600 hover:text-black-800 font-bold text-lg">Cadastro de animais e tutores</a>
+                            <a :href="route('cadastroanimal')" class="text-black-600 hover:text-black-800 font-bold text-lg">Cadastro de Animais</a>
                             <h1 class="ml-4 mt-2">Clique aqui e cadastre um novo animal</h1>
                         </div>
                     </div>
@@ -49,7 +49,7 @@ import { Head } from '@inertiajs/inertia-vue3';
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
-                            <a :href="route('cadastropaciente')" class="text-black-600 hover:text-black-800 font-bold text-lg">Cadastro de tutores</a>
+                            <a :href="route('cadastropaciente')" class="text-black-600 hover:text-black-800 font-bold text-lg">Cadastro de Tutores</a>
                             <h1 class="ml-4 mt-2">Clique aqui e cadastre um tutor</h1>
                         </div>
                     </div>
