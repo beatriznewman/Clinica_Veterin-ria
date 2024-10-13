@@ -11,22 +11,9 @@ import { Head } from '@inertiajs/inertia-vue3';
         {{ $page.props }}
     </div>
     -->
-
     <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Cadastro de tutores
-            </h2>
-        </template>
-
-        <div v-if="$page.props.user.roles.includes('secretaria')">
-
-            <Head title="Secretaria"></Head>
-            
-            <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</Link>
-
             <div class="text-3xl text-gray-700 leading-relaxed text-center">
-                <p class="mt-6">Cadastro de Pacientes</p>
+                <p class="mt-6">Cadastro de Tutor</p>
             </div>
 
             <div class="leading-relaxed text-center max-w-md mx-auto">
@@ -92,9 +79,8 @@ import { Head } from '@inertiajs/inertia-vue3';
                     </div>
                 </form>
             </div>
-        </div>
-
     </AuthenticatedLayout>
+
 </template>
 
 
@@ -121,7 +107,7 @@ export default {
         async preencherEndereco() {
             if (this.form.cep.length === 8) {
                 try {
-                    const response = await fetch('https://viacep.com.br/ws/${this.form.cep}/json/');
+                    const response = await fetch(`https://viacep.com.br/ws/${this.form.cep}/json/`);
                     const data = await response.json();
                     if (data.erro) {
                         this.errors.cep = ['CEP inválido.'];
