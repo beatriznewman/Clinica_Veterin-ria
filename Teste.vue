@@ -46,7 +46,3 @@ onMounted(() => {
         </div>
     </div>
 </template>
-
-<style scoped>
-/* Adicione estilos personalizados aqui, se necessário */
-</style>
