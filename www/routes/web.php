@@ -78,6 +78,7 @@ Route::get('/adocao', function () {
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
+Route::get('/verificar-animais', [AnimalController::class, 'hasAnimals'])->middleware('auth');
 
 // Rota para cadastro de paciente (tutor) independentemente
 Route::get('pacientesind', [PacienteController::class, 'createind'])->name('pacientesind.create');

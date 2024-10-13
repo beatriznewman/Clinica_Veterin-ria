@@ -28,7 +28,7 @@
             <div class="text-3xl text-gray-700 leading-relaxed text-center">
                 <p class="mt-6">Cadastre-se</p>
             </div>
-
+            <h3>Pagina de adoção</h3>
             <div class="leading-relaxed text-center max-w-md mx-auto">
                 <form @submit="submit">
                     <div class="mt-6">

@@ -58,9 +58,9 @@ import { Head } from '@inertiajs/inertia-vue3';
             
         </div>
 
-        <div v-if="$page.props.user.roles.includes('psicologo')">
+        <div v-if="$page.props.user.roles.includes('veterinario')">
 
-            <Head title="Psicologo"></Head>
+            <Head title="Veterinario"></Head>
 
             <div>
                 <ul>
@@ -106,35 +106,46 @@ import { Head } from '@inertiajs/inertia-vue3';
         <div v-if="$page.props.user.roles.includes('cliente')">
 
             <Head title="Cliente"></Head>
-
-            <div class="py-10">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 bg-white border-b border-gray-200">
-                            <a :href="route('consultas.create')" class="text-black-600 hover:text-black-800 font-bold text-lg">Agendar Consultas</a>
-                            <h1 class="ml-4 mt-2">Clique no link acima para agendar sua consulta com um de nossos psicólogos.</h1>
+            <div class="py-5">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="p-6 bg-white border-b border-gray-200">
+                                <a :href="route('adocao')" class="text-black-600 hover:text-black-800 font-bold text-lg">Adotar</a>
+                                <h1 class="ml-4 mt-2">Clique no link acima para adotar um de nossos animais.</h1>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="py-0"> 
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 bg-white border-b border-gray-200">
-                            <a :href="route('consultas.historico')" class="text-black-600 hover:text-black-800 font-bold text-lg">Histórico de Consultas</a>
-                            <h1 class="ml-4 mt-2">Clique no link acima para verificar seu histórico de atendimentos.</h1>
+            <div v-if="$page.props.user.roles.includes('cliente') && hasAnimals">
+                <div class="py-0"> 
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="p-6 bg-white border-b border-gray-200">
+                                <a :href="route('consultas.create')" class="text-black-600 hover:text-black-800 font-bold text-lg">Agendar Consultas</a>
+                                <h1 class="ml-4 mt-2">Clique no link acima para agendar sua consulta com um de nossos veterinarios.</h1>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                
+                <div class="py-5">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="p-6 bg-white border-b border-gray-200">
+                                <a :href="route('consultas.historico')" class="text-black-600 hover:text-black-800 font-bold text-lg">Histórico de Consultas</a>
+                                <h1 class="ml-4 mt-2">Clique no link acima para verificar seu histórico de atendimentos.</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="py-10">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 bg-white border-b border-gray-200">
-                            <a :href="route('consultas.futuras')" class="text-black-600 hover:text-black-800 font-bold text-lg">Consultas Futuras</a>
-                            <h1 class="ml-4 mt-2">Clique no link acima para verificar suas próximas consultas agendadas.</h1>
+                <div class="py-0">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="p-6 bg-white border-b border-gray-200">
+                                <a :href="route('consultas.futuras')" class="text-black-600 hover:text-black-800 font-bold text-lg">Consultas Futuras</a>
+                                <h1 class="ml-4 mt-2">Clique no link acima para verificar suas próximas consultas agendadas.</h1>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -166,6 +177,7 @@ export default {
             errors: {},
             processing: false,
             notificacoes: [],
+            hasAnimals: false,
             polling: null
         };
     },
@@ -173,8 +185,17 @@ export default {
         this.verificarNotificacoes();
         // Configure o polling para verificar notificações a cada 5 segundos
         this.polling = setInterval(this.verificarNotificacoes, 5000); // 5 segundos
+        this.verificarAnimais(); 
     },
     methods: {
+        async verificarAnimais() {
+            try {
+                const response = await axios.get('/verificar-animais');
+                this.hasAnimals = response.data.hasAnimals;
+            } catch (error) {
+                console.error('Erro verificando animais:', error);
+            }
+        },
         async preencherEndereco() {
             if (this.form.cep.length === 8) {
                 try {

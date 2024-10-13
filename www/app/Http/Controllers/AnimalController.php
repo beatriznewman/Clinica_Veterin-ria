@@ -28,7 +28,13 @@ class AnimalController extends Controller
         $animal = Animal::create($validatedData);
         return response()->json($animal, 201);
     }
-
+    
+    public function hasAnimals(Request $request)
+    {
+        $pacienteId = $request->user()->paciente_id;
+        $hasAnimals = Animal::where('paciente_id', $pacienteId)->exists();
+        return response()->json(['hasAnimals' => $hasAnimals]);
+    }
 
     public function index()
     {
