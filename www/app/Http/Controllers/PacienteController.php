@@ -40,6 +40,7 @@ class PacienteController extends Controller
             'username.unique' => 'Este username já está em uso.',
             'password.required' => 'A password é obrigatória.',
             'password.min' => 'A password deve ter pelo menos 6 caracteres.',
+            'password.confirmed' => 'A confirmação da senha não confere.',
         ];
 
         // Validação dos dados
@@ -50,15 +51,16 @@ class PacienteController extends Controller
             'bairro' => 'required|string|max:255',
             'cidade' => 'required|string|max:255',
             'estado' => 'required|string|max:2',
+            'complemento' => 'nullable|string',
             'telefone' => 'required|string|max:15',
             'username' => 'required|string|max:255|unique:users',
-            'password' => 'required|min:6',
+            'password' => 'required|min:6|confirmed', 
         ], $mensagens);
 
         DB::beginTransaction();
         try {
             $paciente = Paciente::create($request->only([
-                'nome', 'cep', 'endereco', 'bairro', 'cidade', 'estado', 'telefone'
+                'nome', 'cep', 'endereco', 'bairro', 'cidade', 'estado', 'complemento','telefone'
             ]));
 
             $user = User::create([
@@ -80,63 +82,6 @@ class PacienteController extends Controller
         }
     }
 
-    public function storeind(Request $request)
-    {
-        $mensagens = [
-            'nome.required' => 'O nome é obrigatório.',
-            'cep.required' => 'O CEP é obrigatório.',
-            'cep.size' => 'O CEP deve ter 8 caracteres.',
-            'endereco.required' => 'O endereço é obrigatório.',
-            'bairro.required' => 'O bairro é obrigatório.',
-            'cidade.required' => 'A cidade é obrigatória.',
-            'estado.required' => 'O estado é obrigatório.',
-            'telefone.required' => 'O telefone é obrigatório.',
-            'telefone.max' => 'O telefone deve ter no máximo 15 caracteres.',
-            'username.required' => 'O username é obrigatório.',
-            'username.unique' => 'Este username já está em uso.',
-            'password.required' => 'A password é obrigatória.',
-            'password.min' => 'A password deve ter pelo menos 6 caracteres.',
-        ];
-
-        // Validação dos dados
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'cep' => 'required|string|size:8',
-            'endereco' => 'required|string|max:255',
-            'bairro' => 'required|string|max:255',
-            'cidade' => 'required|string|max:255',
-            'estado' => 'required|string|max:2',
-            'telefone' => 'required|string|max:15',
-            'username' => 'required|string|max:255|unique:users',
-            'password' => 'required|min:6',
-        ], $mensagens);
-
-        DB::beginTransaction();
-        try {
-            $paciente = Paciente::create($request->only([
-                'nome', 'cep', 'endereco', 'bairro', 'cidade', 'estado', 'telefone'
-            ]));
-
-            $user = User::create([
-                'nome' => $request->nome,
-                'username' => $request->username,
-                'password' => Hash::make($request->password),
-                'paciente_id' => $paciente->id,
-            ]);
-
-            $user->assignRole('cliente');
-
-            event(new Registered($user));
-
-            DB::commit();
-            return Inertia::location(route('pacientesind'));
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return Inertia::render('ErrorPage', [
-                'message' => 'Erro ao cadastrar paciente.',
-            ])->withStatus(500);
-        }
-    }
     public function index()
     {
         return Paciente::all();
@@ -158,6 +103,7 @@ class PacienteController extends Controller
             'bairro' => 'required|string|max:255',
             'cidade' => 'required|string|max:255',
             'estado' => 'required|string|max:255',
+            'complemento' => 'nullable|string',
             'telefone' => 'required|string|max:15',
 
         ], $mensagens);
@@ -169,6 +115,7 @@ class PacienteController extends Controller
         $paciente->bairro = $request->bairro;
         $paciente->cidade = $request->cidade;
         $paciente->estado = $request->estado;
+        $paciente->complemento = $request->complemento;
         $paciente->telefone = $request->telefone;
         $paciente->save();
 
