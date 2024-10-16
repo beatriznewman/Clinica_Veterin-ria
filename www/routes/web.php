@@ -7,10 +7,14 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ContactController;
+<<<<<<< HEAD
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\NotificacaoController;
 use App\Http\Controllers\UserController;
+=======
+use App\Http\Controllers\NotificacaoController;
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +37,11 @@ Route::get('/', function () {
     ]);
 });
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
 //Rota para o Home do User
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
@@ -42,6 +49,7 @@ Route::get('/dashboard', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+<<<<<<< HEAD
 
 require __DIR__.'/auth.php';
 
@@ -59,6 +67,15 @@ Route::get('/cadastro-paciente', function () {
 Route::get('/cadastroanimal', function () {
     return Inertia::render('Cadastro');
 })->name('cadastroanimal');
+=======
+require __DIR__.'/auth.php';
+
+//Rota para vue Cadastro de Paciente
+Route::get('/cadastro', function () {
+    return Inertia::render('Cadastro');
+})->name('cadastro');
+
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
 //Rota para vue Lista de Paciente
 Route::get('/listapaciente', function () {
     return Inertia::render('Listapaciente');
@@ -69,6 +86,7 @@ Route::get('/documentos', function () {
     return Inertia::render('Documentospaciente');
 })->name('documentos');
 
+<<<<<<< HEAD
 // Rota para vue Adocao de animais
 Route::get('/adocao', function () {
     return Inertia::render('Adocao');
@@ -102,13 +120,30 @@ Route::get('/animais/cadastrar', function () {
     return view('Cadastro'); // Arquivo Vue onde está o formulário de cadastro de animais
 })->name('animais.form');
 
+=======
+//Rota para Registro de Secretaria e Psicologo
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
+//Rota para Criar Paciente
+Route::get('pacientes', [PacienteController::class, 'create'])->name('pacientes.create');
+Route::post('/pacientes', [PacienteController::class, 'store'])->name('pacientes.store');
+
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
 //Rota para Consultas
 Route::get('/agendar-consulta', [ConsultaController::class, 'create'])->name('consultas.create');
 Route::post('/consultas', [ConsultaController::class, 'store'])->name('consultas.store');
 Route::get('/historico-consultas', [ConsultaController::class, 'historico'])->name('consultas.historico');
 Route::get('/consultas-futuras', [ConsultaController::class, 'consultar'])->name('consultas.futuras');
 
+<<<<<<< HEAD
 
+=======
+//Rota para Editar info do Paciente
+Route::get('/pacientes', [PacienteController::class, 'index']);
+Route::post('/pacientes', [PacienteController::class, 'store']);
+Route::put('/pacientes/{id}', [PacienteController::class, 'update']); // Rota de atualização
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
 
 //Rota do MailTrap
 Route::post('/send-email', [ContactController::class, 'sendEmail']);
@@ -121,11 +156,22 @@ Route::get('/info', function () {
 Route::get('/consultas', [ConsultaController::class, 'index']);
 Route::put('/consultas/{id}', [ConsultaController::class, 'update']);
 
+<<<<<<< HEAD
+=======
+//Rota de Rensagens
+Route::get('/mensagem', function () {
+    return Inertia::render('Mensagem');
+})->name('mensagem');
+
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
 Route::get('/allconsultas', [ConsultaController::class, 'allConsultas']);
 Route::post('/paciente-chegou', [PacienteController::class, 'pacienteChegou']);
 Route::get('/verificar-notificacoes', [NotificacaoController::class, 'verificarNotificacoes']);
 
+<<<<<<< HEAD
 Route::get('/api/animais/sem-dono', [AnimalController::class, 'animaisSemDono']);
 
 
 Route::post('/animais/adotar', [AdocaoController::class, 'solicitarAdocao']);
+=======
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d

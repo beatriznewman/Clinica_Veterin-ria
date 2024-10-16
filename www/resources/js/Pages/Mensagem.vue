@@ -12,7 +12,11 @@
             <thead>
               <tr>
                 <th class="px-4 py-2 border">Paciente</th>
+<<<<<<< HEAD
                 <th class="px-4 py-2 border">Veterinario</th>
+=======
+                <th class="px-4 py-2 border">Psicologo</th>
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
                 <th class="px-4 py-2 border">Data</th>
                 <th class="px-4 py-2 border">Horario de Inicio</th>
                 <th class="px-4 py-2 border">Horario de Fim</th>
@@ -64,7 +68,11 @@
       return;
     }
     try {
+<<<<<<< HEAD
       const response = await axios.post('/paciente-chegou', { paciente_id: consulta.paciente.id, paciente_nome: consulta.paciente.nome, veterinario_id: consulta.user.id });
+=======
+      const response = await axios.post('/paciente-chegou', { paciente_id: consulta.paciente.id, paciente_nome: consulta.paciente.nome, psicologo_id: consulta.user.id });
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
       alert(response.data.message);
     } catch (error) {
       console.error('Erro ao enviar aviso:', error);

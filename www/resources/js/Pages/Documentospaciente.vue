@@ -96,4 +96,8 @@ export default {
 
 <style scoped>
 /* Seu CSS local aqui */
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d

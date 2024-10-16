@@ -11,20 +11,31 @@
         <table class="min-w-full bg-white border">
           <thead>
             <tr>
+<<<<<<< HEAD
               <th class="px-4 py-2 border">Nome Tutor</th>
               <th class="px-4 py-2 border">Nome Animal</th>
+=======
+              <th class="px-4 py-2 border">Nome</th>
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
               <th class="px-4 py-2 border">Data</th>
               <th class="px-4 py-2 border">Horário de início</th>
               <th class="px-4 py-2 border">Horário de fim</th>
               <th class="px-4 py-2 border">Informação</th>
               <th class="px-4 py-2 border">Editar Informações</th>
+<<<<<<< HEAD
               
+=======
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
             </tr>
           </thead>
           <tbody>
             <tr v-for="consulta in consultas" :key="consulta.id" class="hover:bg-gray-100 text-center">
+<<<<<<< HEAD
               <td class="px-4 py-2 border">{{ consulta.paciente.nome}}</td>
               <td class="px-4 py-2 border">{{ consulta.animal.nome}}</td>
+=======
+              <td class="px-4 py-2 border">{{ consulta.paciente.nome }}</td>
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
               <td class="px-4 py-2 border">{{ consulta.data }}</td>
               <td class="px-4 py-2 border">{{ consulta.horario_inicio }}</td>
               <td class="px-4 py-2 border">{{ consulta.horario_fim }}</td>

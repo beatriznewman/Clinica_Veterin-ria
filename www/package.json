@@ -7,7 +7,11 @@
     "devDependencies": {
         "@inertiajs/inertia": "^0.11.0",
         "@inertiajs/inertia-vue3": "^0.6.0",
+<<<<<<< HEAD
         "@inertiajs/progress": "^0.1.2",
+=======
+        "@inertiajs/progress": "^0.2.7",
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         "@inertiajs/server": "^0.1.0",
         "@tailwindcss/forms": "^0.5.2",
         "@vitejs/plugin-vue": "^3.0.0",

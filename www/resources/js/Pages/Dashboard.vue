@@ -27,8 +27,24 @@ import { Head } from '@inertiajs/inertia-vue3';
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
+<<<<<<< HEAD
                             <a href="/register" class="text-black-600 hover:text-black-800 font-bold text-lg">Registro de Veterinário e Secretaria</a>
                             <h1 class="ml-4 mt-2">Clique aqui e faça o registro de novos veterinários e secretarias.</h1>
+=======
+                            <a href="/register" class="text-black-600 hover:text-black-800 font-bold text-lg">Registro</a>
+                            <h1 class="ml-4 mt-2">Clique aqui e faca o registro de novos usuarios (secretarios ou psicologos).</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-0"> 
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 bg-white border-b border-gray-200">
+                            <a :href="route('cadastro')" class="text-black-600 hover:text-black-800 font-bold text-lg">Cadastro de Pacientes</a>
+                            <h1 class="ml-4 mt-2">Clique aqui e faca cadastro de um novo paciente.</h1>
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
                         </div>
                     </div>
                 </div>
@@ -38,6 +54,7 @@ import { Head } from '@inertiajs/inertia-vue3';
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
+<<<<<<< HEAD
                             <a :href="route('cadastroanimal')" class="text-black-600 hover:text-black-800 font-bold text-lg">Cadastro de Animais</a>
                             <h1 class="ml-4 mt-2">Clique aqui e cadastre um novo animal</h1>
                         </div>
@@ -51,6 +68,10 @@ import { Head } from '@inertiajs/inertia-vue3';
                         <div class="p-6 bg-white border-b border-gray-200">
                             <a :href="route('cadastropaciente')" class="text-black-600 hover:text-black-800 font-bold text-lg">Cadastro de Tutores</a>
                             <h1 class="ml-4 mt-2">Clique aqui e cadastre um tutor</h1>
+=======
+                            <a :href="route('mensagem')" class="text-black-600 hover:text-black-800 font-bold text-lg">Mensagem</a>
+                            <h1 class="ml-4 mt-2">Clique aqui e avise que o paciente chegou</h1>
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
                         </div>
                     </div>
                 </div>
@@ -58,9 +79,15 @@ import { Head } from '@inertiajs/inertia-vue3';
             
         </div>
 
+<<<<<<< HEAD
         <div v-if="$page.props.user.roles.includes('veterinario')">
 
             <Head title="Veterinario"></Head>
+=======
+        <div v-if="$page.props.user.roles.includes('psicologo')">
+
+            <Head title="Psicologo"></Head>
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
 
             <div>
                 <ul>
@@ -106,6 +133,7 @@ import { Head } from '@inertiajs/inertia-vue3';
         <div v-if="$page.props.user.roles.includes('cliente')">
 
             <Head title="Cliente"></Head>
+<<<<<<< HEAD
             <div class="py-5">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -146,6 +174,37 @@ import { Head } from '@inertiajs/inertia-vue3';
                                 <a :href="route('consultas.futuras')" class="text-black-600 hover:text-black-800 font-bold text-lg">Consultas Futuras</a>
                                 <h1 class="ml-4 mt-2">Clique no link acima para verificar suas próximas consultas agendadas.</h1>
                             </div>
+=======
+
+            <div class="py-10">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 bg-white border-b border-gray-200">
+                            <a :href="route('consultas.create')" class="text-black-600 hover:text-black-800 font-bold text-lg">Agendar Consultas</a>
+                            <h1 class="ml-4 mt-2">Clique no link acima para agendar sua consulta com um de nossos psicólogos.</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="py-0"> 
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 bg-white border-b border-gray-200">
+                            <a :href="route('consultas.historico')" class="text-black-600 hover:text-black-800 font-bold text-lg">Histórico de Consultas</a>
+                            <h1 class="ml-4 mt-2">Clique no link acima para verificar seu histórico de atendimentos.</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-10">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 bg-white border-b border-gray-200">
+                            <a :href="route('consultas.futuras')" class="text-black-600 hover:text-black-800 font-bold text-lg">Consultas Futuras</a>
+                            <h1 class="ml-4 mt-2">Clique no link acima para verificar suas próximas consultas agendadas.</h1>
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
                         </div>
                     </div>
                 </div>
@@ -177,7 +236,10 @@ export default {
             errors: {},
             processing: false,
             notificacoes: [],
+<<<<<<< HEAD
             hasAnimals: false,
+=======
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
             polling: null
         };
     },
@@ -185,6 +247,7 @@ export default {
         this.verificarNotificacoes();
         // Configure o polling para verificar notificações a cada 5 segundos
         this.polling = setInterval(this.verificarNotificacoes, 5000); // 5 segundos
+<<<<<<< HEAD
         this.verificarAnimais(); 
     },
     methods: {
@@ -196,6 +259,10 @@ export default {
                 console.error('Erro verificando animais:', error);
             }
         },
+=======
+    },
+    methods: {
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         async preencherEndereco() {
             if (this.form.cep.length === 8) {
                 try {

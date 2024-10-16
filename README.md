@@ -1,7 +1,13 @@
 # Projeto-Clinica
+<<<<<<< HEAD
 
 ### Descrição do Projeto
 - Somos uma clínica de psicologia e necessitamos desenvolver um sistema que seja usado pelos nossos clientes para nos encontrarem na internet e também para nos conhecerem! Esse sistema também deve ser utilizado pelos profissionais da clínica (psicólogos e atendentes), existindo a possibilidade de consultar e acrescentar informações dos clientes (cada profissional com sua devida permissão de acesso e visualização).
+=======
+Mudar o arquivo "Documentospacientes.vue", "Welcome.Vue", "Fimdapagina.Vue" que está em 'resources'-> 'js'-> 'Pages'
+### Descrição do Projeto
+- Somos uma clínica veterinária e necessitamos desenvolver um sistema que seja usado pelos nossos clientes para nos encontrarem na internet e também para nos conhecerem! Esse sistema também deve ser utilizado pelos profissionais da clínica (psicólogos e atendentes), existindo a possibilidade de consultar e acrescentar informações dos clientes (cada profissional com sua devida permissão de acesso e visualização).
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
 
 
 ## Comandos Para a Instalação do Projeto:

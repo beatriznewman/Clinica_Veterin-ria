@@ -3,16 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\DB;
 use App\Models\Consulta;
 use App\Models\User;
 use App\Models\Animal;
 use Inertia\Inertia;
 use Carbon\Carbon;
+=======
+use App\Models\Consulta;
+use App\Models\User;
+use Inertia\Inertia;
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
 
 class ConsultaController extends Controller
 {
     public function create()
+<<<<<<< HEAD
     {
         $user = auth()->user();
 
@@ -25,6 +32,13 @@ class ConsultaController extends Controller
             'animals' => $animals,
             'success' => session('success'),
             'error' => session('error')
+=======
+    {    
+        $users = User::role('psicologo')->get(); // retorna todos os user que tem role 'psicologo'
+        
+        return Inertia::render('AgendarConsulta', [
+            'users' => $users,
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         ]);
     }
 
@@ -33,6 +47,7 @@ class ConsultaController extends Controller
         // Validar os dados do formulário
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
+<<<<<<< HEAD
             'animal_id' => 'required|exists:animals,id',
             'data' => 'required|date',
             'horario_inicio' => 'required|date_format:H:i',
@@ -83,19 +98,51 @@ class ConsultaController extends Controller
 
         if ($existentepaciente) {
             return redirect()->back()->withInput()->withErrors(['error' => 'Você já possui uma consulta agendada neste horário.']);
+=======
+            'data' => 'required|date',
+            'horario_inicio' => 'required|date_format:H:i',
+            'horario_fim' => 'required|date_format:H:i',
+            'informacao' => 'nullable|date_format:H:i',
+        ]);
+
+        // Verificar se o psicólogo está disponível nesse horário
+        $horarioInicio = \Carbon\Carbon::createFromFormat('H:i', $request->horario_inicio);
+        $horarioFim = \Carbon\Carbon::createFromFormat('H:i', $request->horario_fim);
+
+        $consultaExistente = Consulta::where('user_id', $request->user_id)
+                                    ->where('data', $request->data)
+                                    ->where(function ($query) use ($horarioInicio, $horarioFim) {
+                                        $query->where(function ($q) use ($horarioInicio, $horarioFim) {
+                                            $q->where('horario_inicio', '<=', $horarioInicio)
+                                              ->where('horario_fim', '>', $horarioInicio);
+                                        })
+                                        ->orWhere(function ($q) use ($horarioInicio, $horarioFim) {
+                                            $q->where('horario_inicio', '<', $horarioFim)
+                                              ->where('horario_fim', '>=', $horarioFim);
+                                        });
+                                    })
+                                    ->exists();
+
+        if ($consultaExistente) {
+            return redirect()->back()->withInput()->with('error', 'Psicólogo já está ocupado nesse horário.');
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         }
 
         // Criar uma nova consulta
         Consulta::create([
             'paciente_id' => auth()->user()->paciente_id,// Utiliza o ID do paciente logado
             'user_id' => $request->user_id,
+<<<<<<< HEAD
             'animal_id' => $request->animal_id,
+=======
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
             'data' => $request->data,
             'horario_inicio' => $request->horario_inicio,
             'horario_fim' => $request->horario_fim,
             'informacao'=>null,
         ]);
 
+<<<<<<< HEAD
         return redirect()->route('consultas.create')->with('success', 'Consulta agendada com sucesso!');
     }
     
@@ -185,6 +232,66 @@ public function index()
 
     public function update(Request $request, $id)
     {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+=======
+        // Redirecionar após a criação da consulta
+        return redirect()->route('consultas.create')->with('success', 'Consulta agendada com sucesso!');
+    }
+
+    public function historico()
+    {
+        // Data e hora atual
+        $now = now();
+
+        // Obtém as consultas do paciente logado, com os dados completos do psicólogo
+        $consultas = Consulta::where('paciente_id', auth()->user()->paciente_id)
+                            ->with('user') // Carrega o relacionamento psicologo
+                            ->where('data', '<', $now->toDateString()) // Consultas anteriores ao dia de hoje
+                            ->orWhere(function ($query) use ($now) {
+                                $query->where('data', '=', $now->toDateString())
+                                    ->where('horario_inicio', '<=', $now->toTimeString());
+                            })
+                            ->orderBy('data', 'asc')
+                            ->orderBy('horario_inicio', 'asc')
+                            ->get();
+
+        return Inertia::render('HistoricoConsultas', [
+            'consultas' => $consultas,
+        ]);
+    }
+
+    public function consultar()
+    {
+        // Data e hora atual
+        $now = now();
+
+        // Obtém as consultas do paciente logado, com os dados completos do psicólogo
+        $consultas = Consulta::where('paciente_id', auth()->user()->paciente_id)
+                            ->with('user') // Carrega o relacionamento psicologo
+                            ->where('data', '>', $now->toDateString()) // Consultas anteriores ao dia de hoje
+                            ->orWhere(function ($query) use ($now) {
+                                $query->where('data', '=', $now->toDateString())
+                                    ->where('horario_inicio', '>=', $now->toTimeString());
+                            })
+                            ->orderBy('data', 'asc')
+                            ->orderBy('horario_inicio', 'asc')
+                            ->get();
+
+        return Inertia::render('ConsultasFuturas', [
+            'consultas' => $consultas,
+        ]);
+    }
+
+    public function index()
+    {
+        $consultas = Consulta::where('user_id', auth()->user()->id)
+                            ->with('paciente') // Carrega o relacionamento paciente
+                            ->get();
+        return response()->json($consultas);
+    }
+
+    public function update(Request $request, $id)
+    {
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         $validated = $request->validate([
             'informacao' => 'nullable|string',
         ]);

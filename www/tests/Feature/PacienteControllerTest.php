@@ -85,13 +85,21 @@ class PacienteControllerTest extends TestCase
         // Dados de entrada
         $pacienteId = 1;
         $pacienteNome = 'João';
+<<<<<<< HEAD
         $veterinarioId = 1;
+=======
+        $psicologoId = 1;
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         
         // Chamada ao método pacienteChegou
         $response = $this->post('/paciente-chegou', [
             'paciente_id' => $pacienteId,
             'paciente_nome' => $pacienteNome,
+<<<<<<< HEAD
             'veterinario_id' => $veterinarioId
+=======
+            'psicologo_id' => $psicologoId
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         ]);
         
         // Verificações
@@ -114,7 +122,11 @@ class PacienteControllerTest extends TestCase
         $response = $this->post('/paciente-chegou', [
             'paciente_id' => 1,
             // 'paciente_nome' => 'João', <- paciente_nome não fornecido
+<<<<<<< HEAD
             'veterinario_id' => 1
+=======
+            'psicologo_id' => 1
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         ]);
         
         // Verificações

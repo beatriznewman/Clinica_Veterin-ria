@@ -17,8 +17,13 @@
   },
   "homepage": "https://github.com/DevShaded/electron-laravel#readme",
   "devDependencies": {
+<<<<<<< HEAD
     "electron": "^32.2.0",
     "electron-packager": "^17.1.2"
+=======
+    "electron": "^10.1.5",
+    "electron-packager": "^15.1.0"
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
   },
   "dependencies": {
     "node-php-server": "^0.1.2"

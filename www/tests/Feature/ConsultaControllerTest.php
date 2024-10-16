@@ -16,7 +16,11 @@ class ConsultaControllerTest extends TestCase
 
     public function test_agendar_consulta()
     {
+<<<<<<< HEAD
         $veterinario = User::factory()->create();
+=======
+        $psicologo = User::factory()->create();
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         $paciente = Paciente::factory()->create();
         $user = User::factory()->create();
         $user->update(['paciente_id' => $paciente->id]);
@@ -28,7 +32,11 @@ class ConsultaControllerTest extends TestCase
             'horario_inicio' => '10:00',
             'horario_fim' => '11:00',
             'paciente_id' => $user->paciente_id,
+<<<<<<< HEAD
             'user_id' => $veterinario->id,
+=======
+            'user_id' => $psicologo->id,
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         ];
 
 
@@ -42,14 +50,22 @@ class ConsultaControllerTest extends TestCase
 
     public function test_update_informacao_for_consulta()
     {
+<<<<<<< HEAD
         $veterinario = User::factory()->create();
+=======
+        $psicologo = User::factory()->create();
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         $paciente = Paciente::factory()->create();
         $user = User::factory()->create();
         $user->update(['paciente_id' => $paciente->id]);
         
         $this->actingAs($user);
 
+<<<<<<< HEAD
         $consulta = Consulta::factory()->create(['paciente_id' => $user->paciente_id, 'user_id' => $veterinario->id]);
+=======
+        $consulta = Consulta::factory()->create(['paciente_id' => $user->paciente_id, 'user_id' => $psicologo->id]);
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
 
 
         $informacao = 'Nova informação para consulta';

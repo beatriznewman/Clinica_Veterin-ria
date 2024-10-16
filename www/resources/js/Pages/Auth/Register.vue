@@ -95,6 +95,10 @@ const submit = () => {
 
 const options = [
     { label: 'Secretaria', value: '1' },
+<<<<<<< HEAD
     { label: 'Veterinário', value: '2' },
+=======
+    { label: 'Psicólogo', value: '2' },
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
 ];
 </script>

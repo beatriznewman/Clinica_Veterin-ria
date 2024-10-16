@@ -15,4 +15,8 @@
   <style scoped>
   /* O rodapé ocupa 100% da largura */
   </style>
+<<<<<<< HEAD
   
+=======
+  
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d

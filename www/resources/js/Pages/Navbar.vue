@@ -7,7 +7,11 @@ import { defineProps } from 'vue';
   <nav class="bg-gray-800 p-4">
     <div class="container mx-auto">
       <div class="flex items-center justify-between">
+<<<<<<< HEAD
         <a href="/" class="text-white font-bold hover:underline">Clínica Veterinária</a>
+=======
+        <a href="/" class="text-white font-bold hover:underline">Clínica de psicologia</a>
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         <div>
           <a href="#descricao"><button @click="scrollToContato" class="text-white font-bold hover:underline ">Descrição</button></a>
           <a href="#depoimentos"><button @click="scrollToContato" class="text-white font-bold hover:underline ml-4">Depoimentos</button></a>

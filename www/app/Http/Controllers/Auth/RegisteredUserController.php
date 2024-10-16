@@ -61,7 +61,11 @@ class RegisteredUserController extends Controller
                     $user->assignRole('secretaria');
                     break;
                 case '2':
+<<<<<<< HEAD
                     $user->assignRole('veterinario');
+=======
+                    $user->assignRole('psicologo');
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
                     break;
             }     
             

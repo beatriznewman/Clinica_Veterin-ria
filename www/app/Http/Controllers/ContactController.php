@@ -14,7 +14,11 @@ class ContactController extends Controller
             'subject' => 'required|string',
             'message' => 'required|string',
         ]);
+<<<<<<< HEAD
     // cria um array e passa as informacoes pra esse array
+=======
+// cria um array e passa as informacoes pra esse array
+>>>>>>> 2dd8a3ceedfef734f3419ea03ce856f46b15d01d
         $details = [
             'email' => $request->email,
             'subject' => $request->subject,
