@@ -23,15 +23,21 @@
                     </div>
 
                     <div class="mt-4">
-                        <InputLabel for="username" value="Username" />
+                        <InputLabel for="username" value="Usuario" />
                         <TextInput id="username" type="text" class="mt-1 block w-full" v-model="form.username" required autocomplete="username" />
                         <InputError class="mt-2" :message="form.errors.username" />
                     </div>
 
                     <div class="mt-4">
-                        <InputLabel for="password" value="Password" />
+                        <InputLabel for="password" value="Senha" />
                         <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
                         <InputError class="mt-2" :message="form.errors.password" />
+                    </div>
+
+                    <div class="mt-4">
+                        <InputLabel for="password_confirmation" value="Confirmar Senha" />
+                        <input type="password" v-model="form.password_confirmation" class="mt-1 block w-full" />
+                        <span v-if="form.errors.password_confirmation" class="text-red-500">{{ form.errors.password_confirmation }}</span>
                     </div>
 
                     <div class="mt-4">
@@ -85,6 +91,7 @@ const submit = () => {
             };
         },
         onError: (errors) => {
+            form.errors = errors;
             notification.value = {
                 message: 'Erro ao cadastrar paciente.',
                 type: 'error',
