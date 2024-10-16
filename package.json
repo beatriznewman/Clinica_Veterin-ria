@@ -1,0 +1,26 @@
+{
+  "name": "electron-laravel",
+  "version": "1.0.0",
+  "description": "Laravel desktop application using Electron JS",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevShaded/electron-laravel.git"
+  },
+  "author": "Fredrik Sundquist",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DevShaded/electron-laravel/issues"
+  },
+  "homepage": "https://github.com/DevShaded/electron-laravel#readme",
+  "devDependencies": {
+    "electron": "^32.2.0",
+    "electron-packager": "^17.1.2"
+  },
+  "dependencies": {
+    "node-php-server": "^0.1.2"
+  }
+}
