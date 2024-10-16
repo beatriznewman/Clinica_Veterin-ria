@@ -17,6 +17,7 @@ class PacienteFactory extends Factory
             'bairro' => $this->faker->citySuffix,
             'cidade' => $this->faker->city,
             'estado' => $this->faker->stateAbbr,
+            'complemento' => $this->faker->string,
             'telefone' => $this->faker->phoneNumber,
         ];
     }
