@@ -69,11 +69,6 @@ Route::get('/documentos', function () {
     return Inertia::render('Documentospaciente');
 })->name('documentos');
 
-//Rota para vue Cadastro de Paciente
-Route::get('/teste', function () {
-    return Inertia::render('Teste');
-})->name('teste');
-
 // Rota para vue Adocao de animais
 Route::get('/adocao', function () {
     return Inertia::render('Adocao');
