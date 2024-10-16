@@ -55,22 +55,34 @@ import { Head } from '@inertiajs/inertia-vue3';
                     </div>
 
                     <div class="mt-2">
+                        <label for="complemento" class="block text-left mb-2">Complemento:</label>
+                        <input type="text" v-model="form.complemento" class="w-full px-3 py-2 border rounded" />
+                        <span v-if="errors.complemento" class="text-red-500">{{ errors.complemento[0] }}</span>
+                    </div>
+
+                    <div class="mt-2">
                         <label for="telefone" class="block text-left mb-2">Telefone:</label>
-                        <input type="text" v-model="form.telefone" class="w-full px-3 py-2 border rounded" />
+                        <input type="text" v-model="form.telefone" @input="formatarTelefone" class="w-full px-3 py-2 border rounded" />
                         <span v-if="errors.telefone" class="text-red-500">{{ errors.telefone[0] }}</span>
                     </div>
 
                    <div class="mt-2">
-                        <label for="username" class="block text-left mb-2">Username:</label>
+                        <label for="username" class="block text-left mb-2">Usuario:</label>
                         <input type="text" v-model="form.username" class="w-full px-3 py-2 border rounded" />
                         <span v-if="errors.username" class="text-red-500">{{ errors.username[0] }}</span>
                     </div>
 
                     <div class="mt-2">
-                        <label for="password" class="block text-left mb-2">Password:</label>
+                        <label for="password" class="block text-left mb-2">Senha:</label>
                         <input type="password" v-model="form.password" class="w-full px-3 py-2 border rounded" />
                         <span v-if="errors.password" class="text-red-500">{{ errors.password[0] }}</span>
                     </div> 
+
+                    <div class="mt-2">
+                        <label for="password_confirmation" class="block text-left mb-2">Confirmar Senha:</label>
+                        <input type="password" v-model="form.password_confirmation" class="w-full px-3 py-2 border rounded" />
+                        <span v-if="errors.password_confirmation" class="text-red-500">{{ errors.password_confirmation[0] }}</span>
+                    </div>
 
                     <div class="mt-2">
                         <button class="ml-4" :class="{ 'opacity-25': processing }" :disabled="processing">
@@ -95,9 +107,11 @@ export default {
                 bairro: '',
                 cidade: '',
                 estado: '',
+                complemento:'',
                 telefone: '',
                 username: '',
-                password: ''
+                password: '',
+                password_confirmation: ''
             },
             errors: {},
             processing: false
@@ -121,6 +135,12 @@ export default {
                     console.error('Erro ao preencher endereço:', error);
                 }
             }
+        },
+        formatarTelefone(event) {
+            // Remove todos os caracteres que não são números
+            const valorSomenteNumeros = event.target.value.replace(/\D/g, '');
+            // Atualiza o valor no modelo
+            this.form.telefone = valorSomenteNumeros;
         },
         async submit(event) {
             event.preventDefault();
