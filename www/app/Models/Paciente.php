@@ -10,7 +10,7 @@ class Paciente extends Authenticatable
     use HasFactory;
 
     protected $table = 'pacientes';
-    protected $fillable = ['nome', 'cep', 'endereco','bairro','cidade','estado','telefone'];
+    protected $fillable = ['nome', 'cep', 'endereco','bairro','cidade','estado','complemento','telefone'];
 
     public function user()
     {
@@ -26,5 +26,6 @@ class Paciente extends Authenticatable
     {
         return $this->hasMany(Animal::class);
     }
+
 }
 
