@@ -40,13 +40,14 @@ class RegisteredUserController extends Controller
                 'username.required' => 'O username é obrigatório.',
                 'username.unique' => 'Este username já está em uso.',
                 'password.required' => 'A password é obrigatória.',
-                'password.min' => 'A password deve ter pelo menos 6 caracteres.'
+                'password.min' => 'A password deve ter pelo menos 6 caracteres.',
+                'password.confirmed' => 'A confirmação da senha não confere.'
             ];
 
             $request->validate([
                 'nome' => 'required|string|max:255',
                 'username' => 'required|string|max:255|unique:users',
-                'password' => 'required|min:6',
+                'password' => 'required|min:6|confirmed',
             ], $mensagens);
 
             $user = User::create([
