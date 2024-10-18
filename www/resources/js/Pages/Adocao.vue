@@ -1,156 +1,100 @@
 <script setup>
-    import { Link } from '@inertiajs/inertia-vue3';
-    import { defineProps } from 'vue';
-    import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import { Head } from '@inertiajs/inertia-vue3';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+
+// Variável reativa para armazenar os animais sem dono
+const animaisSemDono = ref([]);
+
+// Variáveis reativas para controle do modal e do animal selecionado
+const mostrarModal = ref(false);
+const animalSelecionado = ref({ nome: '', especie: '' });
+
+// Função para buscar os animais sem dono
+const fetchAnimaisSemDono = async () => {
+    try {
+        const response = await axios.get('/api/animais/sem-dono');
+        animaisSemDono.value = response.data;
+    } catch (error) {
+        console.error('Erro ao buscar animais para adoção:', error);
+    }
+};
+
+// Função para abrir o modal com os dados do animal selecionado
+const abrirModal = (animal) => {
+    animalSelecionado.value = animal;
+    mostrarModal.value = true;
+};
+
+// Função para fechar o modal
+const fecharModal = () => {
+    mostrarModal.value = false;
+};
+
+// Chama a função ao montar o componente
+onMounted(() => {
+    fetchAnimaisSemDono();
+});
 </script>
 
 <template>
-  <nav class="bg-gray-800 p-4">
-    <div class="container mx-auto">
-      <div class="flex items-center justify-between">
-        <a href="/" class="text-white font-bold hover:underline">Clínica Veterinária</a>
-        <div>
-          <a href="/login" class="text-white font-bold hover:underline ml-4">Login</a>
+  <AuthenticatedLayout>
+    <template #header>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        Adote um Animal
+      </h2>
+    </template>
+
+    <div class="py-10">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+          <div class="p-6 bg-white border-b border-gray-200">
+            <h3 class="font-bold text-lg mb-4">Lista de Animais para adoção</h3>
+
+            <ul v-if="animaisSemDono.length > 0">
+              <li v-for="animal in animaisSemDono" :key="animal.id" class="mt-4 flex justify-between items-center">
+                <div>
+                  <strong>Espécie:</strong> {{ animal.especie }} <br />
+                  <strong>Nome:</strong> {{ animal.nome }}
+                </div>
+                <!-- Botão Adotar -->
+                <button @click="abrirModal(animal)" class="px-4 py-2 bg-blue-500 text-white rounded">
+                  Adotar
+                </button>
+              </li>
+            </ul>
+
+            <p v-else class="text-gray-500">Nenhum animal para adoção encontrado.</p>
+          </div>
         </div>
       </div>
     </div>
-  </nav>
 
+    <!-- Modal de confirmação de adoção -->
+    <div v-if="mostrarModal" class="fixed z-10 inset-0 overflow-y-auto">
+      <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h3 class="text-lg font-bold mb-4">Confirmar Adoção</h3>
+          <p><strong>Espécie:</strong> {{ animalSelecionado.especie }}</p>
+          <p><strong>Nome:</strong> {{ animalSelecionado.nome }}</p>
 
-    <!--comando abaixo verifica quais sao os roles e permission do user logado-->
-    <!--
-    <div>
-        {{ $page.props }}
+          <div class="mt-4 flex space-x-2">
+            <!-- Botão para confirmar a adoção -->
+            <button class="px-3 py-1 bg-blue-500 text-white rounded">
+              Confirmar Adoção
+            </button>
+
+            <!-- Botão para fechar o modal -->
+            <button @click="fecharModal" class="px-3 py-1 bg-gray-500 text-white rounded">
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    -->
-
-            <div class="text-3xl text-gray-700 leading-relaxed text-center">
-                <p class="mt-6">Cadastre-se</p>
-            </div>
-            <h3>Pagina de adoção</h3>
-            <div class="leading-relaxed text-center max-w-md mx-auto">
-                <form @submit="submit">
-                    <div class="mt-6">
-                        <label for="nome" class="block text-left mb-2">Nome:</label>
-                        <input type="text" v-model="form.nome" class="w-full px-3 py-2 border rounded" />
-                        <span v-if="errors.nome" class="text-red-500">{{ errors.nome[0] }}</span>
-                    </div>
-
-                    <div class="mt-2">
-                        <label for="cep" class="block text-left mb-2">CEP:</label>
-                        <input type="text" v-model="form.cep" @blur="preencherEndereco" class="w-full px-3 py-2 border rounded" />
-                        <span v-if="errors.cep" class="text-red-500">{{ errors.cep[0] }}</span>
-                    </div>
-
-                    <div class="mt-2">
-                        <label for="endereco" class="block text-left mb-2">Endereço:</label>
-                        <input type="text" v-model="form.endereco" class="w-full px-3 py-2 border rounded" />
-                        <span v-if="errors.endereco" class="text-red-500">{{ errors.endereco[0] }}</span>
-                    </div>
-
-                    <div class="mt-2">
-                        <label for="bairro" class="block text-left mb-2">Bairro:</label>
-                        <input type="text" v-model="form.bairro" class="w-full px-3 py-2 border rounded" />
-                        <span v-if="errors.bairro" class="text-red-500">{{ errors.bairro[0] }}</span>
-                    </div>
-
-                    <div class="mt-2">
-                        <label for="cidade" class="block text-left mb-2">Cidade:</label>
-                        <input type="text" v-model="form.cidade" class="w-full px-3 py-2 border rounded" />
-                        <span v-if="errors.cidade" class="text-red-500">{{ errors.cidade[0] }}</span>
-                    </div>
-
-                    <div class="mt-2">
-                        <label for="estado" class="block text-left mb-2">Estado:</label>
-                        <input type="text" v-model="form.estado" class="w-full px-3 py-2 border rounded" />
-                        <span v-if="errors.estado" class="text-red-500">{{ errors.estado[0] }}</span>
-                    </div>
-
-                    <div class="mt-2">
-                        <label for="telefone" class="block text-left mb-2">Telefone:</label>
-                        <input type="text" v-model="form.telefone" class="w-full px-3 py-2 border rounded" />
-                        <span v-if="errors.telefone" class="text-red-500">{{ errors.telefone[0] }}</span>
-                    </div>
-
-                   <div class="mt-2">
-                        <label for="username" class="block text-left mb-2">Username:</label>
-                        <input type="text" v-model="form.username" class="w-full px-3 py-2 border rounded" />
-                        <span v-if="errors.username" class="text-red-500">{{ errors.username[0] }}</span>
-                    </div>
-
-                    <div class="mt-2">
-                        <label for="password" class="block text-left mb-2">Password:</label>
-                        <input type="password" v-model="form.password" class="w-full px-3 py-2 border rounded" />
-                        <span v-if="errors.password" class="text-red-500">{{ errors.password[0] }}</span>
-                    </div> 
-
-                    <div class="mt-2">
-                        <button class="ml-4" :class="{ 'opacity-25': processing }" :disabled="processing">
-                            Cadastrar
-                        </button>
-                    </div>
-                </form>
-            </div>
-        
-
+  </AuthenticatedLayout>
 </template>
 
-
-<script>
-export default {
-    data() {
-        return {
-            form: {
-                nome: '',
-                cep: '',
-                endereco: '',
-                bairro: '',
-                cidade: '',
-                estado: '',
-                telefone: '',
-                username: '',
-                password: ''
-            },
-            errors: {},
-            processing: false
-        };
-    },
-    methods: {
-        async preencherEndereco() {
-            if (this.form.cep.length === 8) {
-                try {
-                    const response = await fetch(`https://viacep.com.br/ws/${this.form.cep}/json/`);
-                    const data = await response.json();
-                    if (data.erro) {
-                        this.errors.cep = ['CEP inválido.'];
-                    } else {
-                        this.form.endereco = data.logradouro;
-                        this.form.bairro = data.bairro;
-                        this.form.cidade = data.localidade;
-                        this.form.estado = data.uf;
-                    }
-                } catch (error) {
-                    console.error('Erro ao preencher endereço:', error);
-                }
-            }
-        },
-        async submit(event) {
-            event.preventDefault();
-            this.processing = true;
-            try {
-                const response = await axios.post('/pacientes', this.form);
-                alert(response.data.message);
-            } catch (error) {
-                if (error.response && error.response.status === 422) {
-                    this.errors = error.response.data.errors;
-                }
-            } finally {
-                this.processing = false;
-            }
-        }
-    }
-};
-</script>
-  
-  
+<style scoped>
+/* Estilos adicionais conforme necessário */
+</style>
