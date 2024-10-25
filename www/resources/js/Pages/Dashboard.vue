@@ -46,11 +46,23 @@ import { Head } from '@inertiajs/inertia-vue3';
             </div>
 
             <div class="py-10"> 
+                <!-- Leva a página para realizzar o cadastro de tutor-->
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
                             <a :href="route('cadastropaciente')" class="text-black-600 hover:text-black-800 font-bold text-lg">Cadastro de Tutores</a>
                             <h1 class="ml-4 mt-2">Clique aqui e cadastre um tutor</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-10"> 
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 bg-white border-b border-gray-200">
+                            <a :href="route('adocao.solicitacoes')" class="text-black-600 hover:text-black-800 font-bold text-lg">Solicitações de Adoção</a>
+                            <h1 class="ml-4 mt-2">Clique aqui para visualizar, aceitar ou negar as solicitações de adoção.</h1>
                         </div>
                     </div>
                 </div>
@@ -187,6 +199,7 @@ export default {
         this.polling = setInterval(this.verificarNotificacoes, 5000); // 5 segundos
         this.verificarAnimais(); 
     },
+
     methods: {
         async verificarAnimais() {
             try {
@@ -196,7 +209,9 @@ export default {
                 console.error('Erro verificando animais:', error);
             }
         },
+
         async preencherEndereco() {
+            this.processing = true; // Iniciar indicador de carregamento
             if (this.form.cep.length === 8) {
                 try {
                     const response = await fetch(`https://viacep.com.br/ws/${this.form.cep}/json/`);
@@ -211,9 +226,12 @@ export default {
                     }
                 } catch (error) {
                     console.error('Erro ao preencher endereço:', error);
+                } finally {
+                    this.processing = false; // Terminar indicador de carregamento
                 }
             }
         },
+
         async submit(event) {
             event.preventDefault();
             this.processing = true;
@@ -228,6 +246,7 @@ export default {
                 this.processing = false;
             }
         },
+
         async verificarNotificacoes() {
             try {
                 const response = await axios.get(`/verificar-notificacoes`);
@@ -240,6 +259,7 @@ export default {
             }
         }
     },
+
     beforeDestroy() {
         clearInterval(this.polling);
     }

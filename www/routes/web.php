@@ -11,19 +11,18 @@ use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\NotificacaoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdocaoController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+// Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
+// Here is where you can register web routes for your application.
+// These routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
-|
 */
 
-//Rota para Login
+// Rota para Login
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -33,19 +32,16 @@ Route::get('/', function () {
     ]);
 });
 
-
-
-//Rota para o Home do User
+// Rota para o Home do User
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
         'canRegister' => Route::has('register'),    
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
 require __DIR__.'/auth.php';
 
-//Rota para vue Cadastro de Paciente
+// Rota para vue Cadastro de Paciente
 Route::get('/cadastropaciente', function () {
     return Inertia::render('Paciente');
 })->name('cadastropaciente');
@@ -55,26 +51,27 @@ Route::get('/cadastro-paciente', function () {
     return Inertia::render('PacienteIndependente');
 })->name('cadastro.paciente');
 
-//Rota para vue Cadastro de Paciente
+// Rota para vue Cadastro de Animal
 Route::get('/cadastroanimal', function () {
     return Inertia::render('Cadastro');
 })->name('cadastroanimal');
-//Rota para vue Lista de Paciente
+
+// Rota para vue Lista de Pacientes
 Route::get('/listapaciente', function () {
     return Inertia::render('Listapaciente');
 })->name('listapaciente');
 
-//Rota para vue Documento
+// Rota para vue Documento
 Route::get('/documentos', function () {
     return Inertia::render('Documentospaciente');
 })->name('documentos');
 
-// Rota para vue Adocao de animais
+// Rota para vue Adoção de Animais
 Route::get('/adocao', function () {
     return Inertia::render('Adocao');
 })->name('adocao');
 
-//Rota para Registro de Secretaria e Veterinario
+// Rota para Registro de Secretaria e Veterinário
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
@@ -86,9 +83,11 @@ Route::post('/pacientesind', [PacienteController::class, 'storeind'])->name('pac
 Route::get('pacientes', [PacienteController::class, 'create'])->name('pacientes.create');
 Route::post('/pacientes', [PacienteController::class, 'store'])->name('pacientes.store');
 
+// Rota para cadastro de animal
 Route::get('/cadastro-animal', [AnimalController::class, 'create'])->name('animal.create');
 Route::post('/cadastro-animal', [AnimalController::class, 'store'])->name('animal.store');
 
+// Rota para lista de usuários
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/animais', [AnimalController::class, 'index']);
 
@@ -102,17 +101,16 @@ Route::get('/animais/cadastrar', function () {
     return view('Cadastro'); // Arquivo Vue onde está o formulário de cadastro de animais
 })->name('animais.form');
 
-//Rota para Consultas
+// Rota para Consultas
 Route::get('/agendar-consulta', [ConsultaController::class, 'create'])->name('consultas.create');
 Route::post('/consultas', [ConsultaController::class, 'store'])->name('consultas.store');
 Route::get('/historico-consultas', [ConsultaController::class, 'historico'])->name('consultas.historico');
 Route::get('/consultas-futuras', [ConsultaController::class, 'consultar'])->name('consultas.futuras');
 
-
-//Rota do MailTrap
+// Rota do MailTrap
 Route::post('/send-email', [ContactController::class, 'sendEmail']);
 
-//Rota para Editar info da Consulta
+// Rota para Editar info da Consulta
 Route::get('/info', function () {
     return Inertia::render('InfoConsulta');
 })->name('info');
@@ -126,5 +124,18 @@ Route::get('/verificar-notificacoes', [NotificacaoController::class, 'verificarN
 
 Route::get('/api/animais/sem-dono', [AnimalController::class, 'animaisSemDono']);
 
+// Rotas relacionadas à adoção:
+// Rota para solicitação de adoção
+Route::post('/animais/adotar', [AdocaoController::class, 'solicitarAdocao'])->name('adotar');
 
-Route::post('/animais/adotar', [AdocaoController::class, 'solicitarAdocao']);
+// Rota para exibir solicitações de adoção para a secretária
+Route::get('/secretaria/adocoes', [AdocaoController::class, 'verSolicitacoes'])->middleware('auth')->name('adocao.solicitacoes');
+
+// Rota para a secretária aprovar ou negar a adoção
+Route::post('/secretaria/adocao/{id}/confirmar', [AdocaoController::class, 'confirmarAdocao'])->name('adocao.confirmar');
+Route::post('/secretaria/adocao/{id}/negar', [AdocaoController::class, 'negarAdocao'])->name('adocao.negar');
+
+// Rota para visualizar as solicitações de adoção do cliente
+Route::get('/minhas-solicitacoes', [AdocaoController::class, 'listarSolicitacoesCliente'])
+    ->middleware('auth')
+    ->name('minhas.solicitacoes.adocao');

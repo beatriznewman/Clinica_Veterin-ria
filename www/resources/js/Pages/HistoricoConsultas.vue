@@ -38,6 +38,10 @@
                       Animal: {{ consulta.animal.nome }}
                     </p>
                     <p v-else class="text-gray-500">Animal não disponível</p>
+
+                    <p class="text-gray-700">
+                      <strong>Considerações do veterinário :</strong> {{ consulta.informacao || 'Nenhuma informação adicional disponível.' }}
+                    </p>
                   </div>
                 </div>
               </template>
@@ -48,6 +52,7 @@
     </div>
   </AuthenticatedLayout>
 </template>
+
 
 <script setup>
 import { ref, defineProps, computed } from 'vue';
