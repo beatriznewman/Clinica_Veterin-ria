@@ -29,6 +29,11 @@ const submit = () => {
     <GuestLayout>
         <Head title="Login" />
 
+        <!-- Adicionando a imagem acima do formulário -->
+        <div class="flex justify-center mb-4">
+            <img src="https://i.pinimg.com/236x/f4/5d/22/f45d22ca31d82fd0bf7101dda9e9e051.jpg" alt="Imagem de login" class="w-33 h-33 rounded-full">
+        </div>
+
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
         </div>

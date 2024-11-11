@@ -135,53 +135,53 @@ class ConsultaController extends Controller
     }
     
 
-public function consultar(Request $request)
-{
-    // Data e hora atual
-    $now = now();
+    public function consultar(Request $request)
+    {
+        // Data e hora atual
+        $now = now();
 
-    // Obtém o ID do paciente a partir da requisição
-    $pacienteId = auth()->user()->paciente_id;
+        // Obtém o ID do paciente a partir da requisição
+        $pacienteId = auth()->user()->paciente_id;
 
-    // Obtém todos os animais do paciente logado
-    $animals = Animal::where('paciente_id', $pacienteId)->get();
+        // Obtém todos os animais do paciente logado
+        $animals = Animal::where('paciente_id', $pacienteId)->get();
 
-    // Inicia a consulta
-    $query = Consulta::where('paciente_id', $pacienteId)
-                    ->with(['user', 'animal']) // Carrega o relacionamento com o veterinário e o animal
-                    ->where(function ($query) use ($now) {
-                        $query->where('data', '>', $now->toDateString())
-                              ->orWhere(function ($query) use ($now) {
-                                  $query->where('data', '=', $now->toDateString())
-                                        ->where('horario_inicio', '>=', $now->toTimeString());
-                              });
-                    });
+        // Inicia a consulta
+        $query = Consulta::where('paciente_id', $pacienteId)
+                        ->with(['user', 'animal']) // Carrega o relacionamento com o veterinário e o animal
+                        ->where(function ($query) use ($now) {
+                            $query->where('data', '>', $now->toDateString())
+                                ->orWhere(function ($query) use ($now) {
+                                    $query->where('data', '=', $now->toDateString())
+                                            ->where('horario_inicio', '>=', $now->toTimeString());
+                                });
+                        });
 
-    // Se um animal_id foi fornecido, aplique o filtro
-    $animalId = $request->input('animal_id');
-    if ($animalId) {
-        $query->where('animal_id', $animalId);
+        // Se um animal_id foi fornecido, aplique o filtro
+        $animalId = $request->input('animal_id');
+        if ($animalId) {
+            $query->where('animal_id', $animalId);
+        }
+
+        // Ordena e obtém as consultas
+        $consultas = $query->orderBy('data', 'asc')
+                        ->orderBy('horario_inicio', 'asc')
+                        ->get();
+
+        return Inertia::render('ConsultasFuturas', [
+            'consultas' => $consultas,
+            'animals' => $animals, // Passa os animais para o frontend
+            'selected_animal_id' => $animalId
+        ]);
     }
 
-    // Ordena e obtém as consultas
-    $consultas = $query->orderBy('data', 'asc')
-                       ->orderBy('horario_inicio', 'asc')
-                       ->get();
-
-    return Inertia::render('ConsultasFuturas', [
-        'consultas' => $consultas,
-        'animals' => $animals, // Passa os animais para o frontend
-        'selected_animal_id' => $animalId
-    ]);
-}
-
-public function index()
-{
-    $consultas = Consulta::where('user_id', auth()->user()->id)
-                        ->with(['paciente', 'animal']) // Carrega os relacionamentos paciente e animal
-                        ->get();
-    return response()->json($consultas);
-}
+    public function index()
+    {
+        $consultas = Consulta::where('user_id', auth()->user()->id)
+                            ->with(['paciente', 'animal']) // Carrega os relacionamentos paciente e animal
+                            ->get();
+        return response()->json($consultas);
+    }
 
     public function update(Request $request, $id)
     {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          

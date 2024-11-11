@@ -20,8 +20,11 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
+                                <!-- Substituindo o logo padrão do Laravel pela imagem da clínica -->
                                 <Link :href="route('dashboard')">
-                                    <ApplicationLogo class="block h-9 w-auto" />
+                                    <img src="https://i.pinimg.com/236x/f4/5d/22/f45d22ca31d82fd0bf7101dda9e9e051.jpg" 
+                                         alt="Clínica Veterinária" 
+                                         class="h-14 w-auto"> <!-- Tamanho ajustado -->
                                 </Link>
                             </div>
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\NotificacaoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdocaoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,4 +128,6 @@ Route::get('/verificar-notificacoes', [NotificacaoController::class, 'verificarN
 Route::get('/api/animais/sem-dono', [AnimalController::class, 'animaisSemDono']);
 
 
-Route::post('/animais/adotar', [AdocaoController::class, 'solicitarAdocao']);
+// Rota para adotar um animal
+Route::post('/animais/adotar', [AdocaoController::class, 'adotar']);
+

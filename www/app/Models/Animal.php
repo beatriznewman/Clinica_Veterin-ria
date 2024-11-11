@@ -21,6 +21,12 @@ class Animal extends Model
     {
         return $this->hasMany(Consulta::class, 'paciente_id');
     }
+
+    // Relação entre Animal e Paciente (dono do animal)
+    public function dono()
+    {
+        return $this->belongsTo(Paciente::class, 'paciente_id');
+    }   
 }
 
 

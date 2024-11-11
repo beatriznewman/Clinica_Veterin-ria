@@ -7,9 +7,9 @@
         <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Clínica Veterinária</h1>
 
           <!-- Imagem redonda -->
-        <div class="flex justify-center mb-8">
-          <img src="https://i.pinimg.com/236x/f4/5d/22/f45d22ca31d82fd0bf7101dda9e9e051.jpg" alt="Clínica Veterinária" class="w-40 h-40 rounded-full">
-        </div>
+          <div class="flex justify-center mb-8">
+            <img src="https://i.pinimg.com/236x/f4/5d/22/f45d22ca31d82fd0bf7101dda9e9e051.jpg" alt="Clínica Veterinária" class="w-40 h-40 rounded-full">
+          </div>
 
         <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
           <p class="text-lg text-gray-700 leading-relaxed mb-6 text-center">
