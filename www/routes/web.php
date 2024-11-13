@@ -12,6 +12,7 @@ use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\NotificacaoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdocaoController;
+use App\Http\Controllers\VisualizacaoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -131,3 +132,10 @@ Route::get('/api/animais/sem-dono', [AnimalController::class, 'animaisSemDono'])
 // Rota para adotar um animal
 Route::post('/animais/adotar', [AdocaoController::class, 'adotar']);
 
+//Rota para vue Visualização de Usuário
+Route::get('/usuários', function () {
+    return Inertia::render('Usuário');
+})->name('visualizacaoUsuario');
+
+//Rota para vue visualização de Animal
+Route::get('/visualizacao-animais', [VisualizacaoController::class, 'index'])->name('visualizacaoAnimal');

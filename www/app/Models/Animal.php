@@ -14,7 +14,7 @@ class Animal extends Model
     // Relacionamento com Paciente
     public function paciente()
     {
-        return $this->belongsTo(Paciente::class);
+        return $this->belongsTo(Paciente::class, 'paciente_id');
     }
 
     public function consulta()
