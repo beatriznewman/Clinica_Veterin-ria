@@ -24,8 +24,8 @@ const showingNavigationDropdown = ref(false);
                                 <Link :href="route('dashboard')">
                                     <img src="https://i.pinimg.com/236x/f4/5d/22/f45d22ca31d82fd0bf7101dda9e9e051.jpg" 
                                          alt="Clínica Veterinária" 
-                                         class="h-14 w-auto"> <!-- Tamanho ajustado -->
-                                </Link>
+                                         class="h-14 w-auto"> 
+                                </Link>   
                             </div>
 
                             <!-- Navigation Links -->
