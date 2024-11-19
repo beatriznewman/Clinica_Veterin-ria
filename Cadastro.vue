@@ -47,6 +47,11 @@
                             </div>
 
                             <div class="mt-2"> <!-- Reduzido para mt-2 -->
+                                <label for="nome" class="block text-left mb-1">Descricao:</label>
+                                <input type="text" v-model="animal.descricao" required class="w-full px-3 py-2 border rounded" />
+                            </div>
+
+                            <div class="mt-2"> <!-- Reduzido para mt-2 -->
                                 <label for="tutor" class="block text-left mb-1">Tutor:</label>
                                 <select v-model="animal.paciente_id" @change="atualizarPacienteId(index)" class="w-full px-3 py-2 border rounded">
                                     <option value="">Selecione um Tutor</option>
@@ -99,6 +104,7 @@ export default {
                 {
                     especie: '',
                     nome: '',
+                    descricao: '',
                     paciente_id: null,
                     imagem: null,
                 },
@@ -136,6 +142,7 @@ export default {
             this.animais.push({
                 especie: '',
                 nome: '',
+                descricao: '',
                 paciente_id: null,
                 imagem: null,
             });
@@ -156,6 +163,7 @@ export default {
                     const formData = new FormData();
                     formData.append('especie', animal.especie);
                     formData.append('nome', animal.nome);
+                    formData.append('descricao', animal.descricao);
                     // Se paciente_id for null, envia null
                     if (animal.paciente_id !== null) {
                         formData.append('paciente_id', animal.paciente_id);
@@ -183,6 +191,7 @@ export default {
                 this.animais = [{
                     especie: '',
                     nome: '',
+                    descricao: '',
                     paciente_id: null,
                     imagem: null,
                 }];
