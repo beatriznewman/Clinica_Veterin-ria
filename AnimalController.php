@@ -22,6 +22,7 @@ class AnimalController extends Controller
         $validatedData = $request->validate([
             'especie' => 'required|string',
             'nome' => 'required|string',
+            'descricao' => 'required|string',
             'paciente_id' => 'nullable|exists:users,paciente_id', // Verifica se o paciente_id existe na tabela de usuários
             'imagem' => 'nullable|image|max:2048',
         ]);
@@ -65,6 +66,7 @@ class AnimalController extends Controller
         $request->validate([
             'nome' => 'sometimes|required|string|max:255',
             'especie' => 'sometimes|required|string|max:255',
+            'descricao' => 'sometimes|required|string|max:255',
             'paciente_id' => 'nullable|exists:pacientes,id',
             'imagem' => 'nullable|image|max:2048',
         ]);
