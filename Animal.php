@@ -8,25 +8,19 @@ class Animal extends Model
 {
     use HasFactory;
 
-    protected $table = 'animals';
-    protected $fillable = ['nome', 'especie', 'paciente_id', 'imagem'];
+    protected $table = 'animais';
+    protected $fillable = ['nome', 'especie', 'descricao', 'paciente_id'];
 
     // Relacionamento com Paciente
     public function paciente()
     {
-        return $this->belongsTo(Paciente::class, 'paciente_id');
+        return $this->belongsTo(Paciente::class);
     }
 
     public function consulta()
     {
         return $this->hasMany(Consulta::class, 'paciente_id');
     }
-
-    // Relação entre Animal e Paciente (dono do animal)
-    public function dono()
-    {
-        return $this->belongsTo(Paciente::class, 'paciente_id');
-    }   
 }
 
 
