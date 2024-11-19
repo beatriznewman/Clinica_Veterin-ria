@@ -93,6 +93,7 @@ onMounted(() => {
                                 <div>
                                     <strong>Espécie:</strong> {{ animal.especie }} <br />
                                     <strong>Nome:</strong> {{ animal.nome }}
+                                    <strong>Descricao:</strong> {{ animal.descricao }} <br />
                                     <!-- Exibindo a imagem do animal -->
                                     <img :src="`/storage/${animal.imagem}`" alt="Imagem do animal" class="mt-2 w-32 h-32 object-cover rounded" />
                                 </div>
