@@ -10,6 +10,7 @@ const mensagemSucesso = ref('');
 const mensagemErro = ref('');
 const pacienteLogadoId = ref(null);
 const isLoading = ref(false);
+const caminhoImagemBase = '/storage/'; // Caminho base para as imagens
 
 defineProps({
     pacienteLogadoId: {
@@ -91,7 +92,10 @@ onMounted(() => {
                             <li v-for="animal in animaisSemDono" :key="animal.id" class="mt-4 flex justify-between items-center">
                                 <div>
                                     <strong>Espécie:</strong> {{ animal.especie }} <br />
-                                    <strong>Nome:</strong> {{ animal.nome }}
+                                    <strong>Nome:</strong> {{ animal.nome }} <br />
+                                    <strong>Descricao:</strong> {{ animal.descricao }} <br />
+                                    <!-- Exibindo a imagem do animal -->
+                                    <img :src="`/storage/${animal.imagem}`" alt="Imagem do animal" class="mt-2 w-32 h-32 object-cover rounded" />
                                 </div>
                                 <button @click="abrirModal(animal)" class="px-4 py-2 bg-blue-500 text-white rounded">
                                     Adotar
@@ -111,6 +115,9 @@ onMounted(() => {
                     <h3 class="text-lg font-bold mb-4">Confirmar Adoção</h3>
                     <p><strong>Espécie:</strong> {{ animalSelecionado.especie }}</p>
                     <p><strong>Nome:</strong> {{ animalSelecionado.nome }}</p>
+                    <p><strong>Descrição:</strong> {{ animalSelecionado.descricao }}</p>
+                    <!-- Exibindo a imagem do animal no modal -->
+                    <img :src="`/storage/${animalSelecionado.imagem}`" alt="Imagem do animal selecionado" class="mt-4 w-32 h-32 object-cover rounded" />
 
                     <div class="mt-4 flex space-x-2">
                         <button @click="confirmarAdocao" class="px-3 py-1 bg-blue-500 text-white rounded" :disabled="isLoading">

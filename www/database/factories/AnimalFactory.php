@@ -13,6 +13,7 @@ class AnimalFactory extends Factory
         return [
             'especie' => $this->faker->name,
             'nome' => $this->faker->name,
+            'descricao' => $this->faker->name,
         ];
     }
 }

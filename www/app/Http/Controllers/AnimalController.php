@@ -22,8 +22,19 @@ class AnimalController extends Controller
         $validatedData = $request->validate([
             'especie' => 'required|string',
             'nome' => 'required|string',
+            'descricao' => 'required|string',
             'paciente_id' => 'nullable|exists:users,paciente_id', // Verifica se o paciente_id existe na tabela de usuários
+            'imagem' => 'nullable|image|max:2048',
         ]);
+
+        // Se uma imagem foi enviada
+        if ($request->hasFile('imagem')) {
+            // Processa a imagem e armazena no diretório 'animais' (você pode mudar o diretório)
+            $path = $request->file('imagem')->store('animais', 'public');
+
+            // Adiciona o caminho da imagem aos dados
+            $validatedData['imagem'] = $path;
+        }
 
         $animal = Animal::create($validatedData);
         return response()->json($animal, 201);
@@ -38,7 +49,6 @@ class AnimalController extends Controller
 
     public function index()
     {
-        
         $animais = Animal::all(); 
         return response()->json($animais);
     }
@@ -55,10 +65,25 @@ class AnimalController extends Controller
         $request->validate([
             'nome' => 'sometimes|required|string|max:255',
             'especie' => 'sometimes|required|string|max:255',
+            'descricao' => 'sometimes|required|string|max:255',
             'paciente_id' => 'nullable|exists:pacientes,id',
+            'imagem' => 'nullable|image|max:2048',
         ]);
 
         $animal = Animal::findOrFail($id);
+
+        // Se uma nova imagem for enviada
+        if ($request->hasFile('imagem')) {
+            // Apaga a imagem antiga (caso exista)
+            if ($animal->imagem) {
+                Storage::disk('public')->delete($animal->imagem);
+            }
+
+            // Processa e armazena a nova imagem
+            $path = $request->file('imagem')->store('animais', 'public');
+            $animal->imagem = $path; // Atualiza o campo de imagem
+        }
+
         $animal->update($request->all());
         return response()->json($animal);
     }

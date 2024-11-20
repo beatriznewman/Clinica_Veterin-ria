@@ -23,7 +23,7 @@ import { Head } from '@inertiajs/inertia-vue3';
 
             <Head title="Secretaria"></Head>           
 
-            <div class="py-10"> 
+            <div class="py-5"> 
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
@@ -34,7 +34,7 @@ import { Head } from '@inertiajs/inertia-vue3';
                 </div>
             </div>
 
-            <div class="py-10"> 
+            <div class="py-0"> 
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
@@ -45,7 +45,7 @@ import { Head } from '@inertiajs/inertia-vue3';
                 </div>
             </div>
 
-            <div class="py-10"> 
+            <div class="py-5"> 
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
@@ -56,22 +56,22 @@ import { Head } from '@inertiajs/inertia-vue3';
                 </div>
             </div>
 
-            <div class="py-10"> 
+            <div class="py-0"> 
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
-                            <a :href="route('visualizacaoUsuario')" class="text-black-600 hover:text-black-800 font-bold text-lg">Usuários cadastrados</a>
+                            <a :href="route('visualizacaoUsuario')" class="text-black-600 hover:text-black-800 font-bold text-lg">Usuários Cadastrados</a>
                             <h1 class="ml-4 mt-2">Clique aqui e visualize os usuários cadastrados</h1>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="py-10"> 
+            <div class="py-5"> 
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
-                            <a :href="route('visualizacaoAnimal')" class="text-black-600 hover:text-black-800 font-bold text-lg">Animais cadastrados</a>
+                            <a :href="route('visualizacaoAnimal')" class="text-black-600 hover:text-black-800 font-bold text-lg">Animais Cadastrados</a>
                             <h1 class="ml-4 mt-2">Clique aqui e visualize os animais cadastrados</h1>
                         </div>
                     </div>

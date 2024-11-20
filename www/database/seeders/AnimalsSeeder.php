@@ -26,22 +26,32 @@ class AnimalsSeeder extends Seeder
             [
                 'especie' => 'Cachorro',
                 'nome' => 'Rex',
+                'descricao' => 'Um cachorro leal e protetor.',
+                'imagem' => 'rex.jpg',
             ],
             [
                 'especie' => 'Gato',
                 'nome' => 'Mimi',
+                'descricao' => 'Uma gata curiosa e brincalhona.',
+                'imagem' => 'mimi.jpg',
             ],
             [
                 'especie' => 'Pássaro',
                 'nome' => 'Loro',
+                'descricao' => 'Um papagaio falante e esperto.',
+                'imagem' => 'loro.jpg',
             ],
             [
                 'especie' => 'Hamster',
                 'nome' => 'Pipoca',
+                'descricao' => 'Um pequeno roedor adorável.',
+                'imagem' => 'pipoca.jpg',
             ],
             [
                 'especie' => 'Gato',
                 'nome' => 'Felix',
+                'descricao' => 'Um gato elegante e independente.',
+                'imagem' => 'felix.jpg',
             ],
         ];
 
@@ -50,7 +60,9 @@ class AnimalsSeeder extends Seeder
             Animal::create([
                 'especie' => $animal['especie'],
                 'nome' => $animal['nome'],
+                'descricao' => $animal['descricao'],
                 'paciente_id' => $pacientes->random()->paciente_id, // Atribui um paciente aleatório
+                'imagem' => $animal['imagem'],
             ]);
         }
     }

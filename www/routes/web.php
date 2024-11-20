@@ -133,9 +133,7 @@ Route::get('/api/animais/sem-dono', [AnimalController::class, 'animaisSemDono'])
 Route::post('/animais/adotar', [AdocaoController::class, 'adotar']);
 
 //Rota para vue Visualização de Usuário
-Route::get('/usuários', function () {
-    return Inertia::render('Usuário');
-})->name('visualizacaoUsuario');
+Route::get('/visualizacao-usuario', [VisualizacaoController::class, 'usuario'])->name('visualizacaoUsuario');
 
-//Rota para vue visualização de Animal
-Route::get('/visualizacao-animais', [VisualizacaoController::class, 'index'])->name('visualizacaoAnimal');
+//Rota para vue Visualização de Animal
+Route::get('/visualizacao-animais', [VisualizacaoController::class, 'animal'])->name('visualizacaoAnimal');
