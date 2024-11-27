@@ -53,6 +53,10 @@ Instale as dependências do projeto:
 ```sh
 composer install
 ```
+Gere a pasta storage dentro da public:
+```sh
+php artisan storage:link
+```
 Gere a key do projeto Laravel:
 ```sh
 php artisan key:generate
