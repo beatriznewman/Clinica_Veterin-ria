@@ -35,10 +35,10 @@
                     <td class="px-6 py-4 text-sm text-gray-500">
                       <img
                         v-if="animal.imagem"
-                        :src="animal.imagem"
+                        :src="`/storage/${animal.imagem}`"
                         alt="Foto do animal"
                         class="w-16 h-16 object-cover rounded-full cursor-pointer"
-                        @click="openModal(animal.imagem)"
+                        @click="openModal(`/storage/${animal.imagem}`)"
                       />
                       <span v-else>Sem imagem</span>
                     </td>
@@ -56,7 +56,7 @@
 
     <!-- Modal -->
     <div v-if="modalImage" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm sm:max-w-md lg:max-w-lg">
+      <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm sm:max-w-md lg:max-w-lg relative">
         <button
           @click="closeModal"
           class="absolute top-3 right-3 text-gray-600 hover:text-gray-800 focus:outline-none"

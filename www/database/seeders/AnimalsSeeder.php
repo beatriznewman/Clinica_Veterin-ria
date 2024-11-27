@@ -27,31 +27,31 @@ class AnimalsSeeder extends Seeder
                 'especie' => 'Cachorro',
                 'nome' => 'Rex',
                 'descricao' => 'Um cachorro leal e protetor.',
-                'imagem' => 'rex.jpg',
+                'imagem' => 'animais/rex.jpg',
             ],
             [
                 'especie' => 'Gato',
                 'nome' => 'Mimi',
                 'descricao' => 'Uma gata curiosa e brincalhona.',
-                'imagem' => 'mimi.jpg',
+                'imagem' => 'animais/mimi.jpg',
             ],
             [
                 'especie' => 'Pássaro',
                 'nome' => 'Loro',
                 'descricao' => 'Um papagaio falante e esperto.',
-                'imagem' => 'loro.jpg',
+                'imagem' => 'animais/loro.jpg',
             ],
             [
                 'especie' => 'Hamster',
                 'nome' => 'Pipoca',
                 'descricao' => 'Um pequeno roedor adorável.',
-                'imagem' => 'pipoca.jpg',
+                'imagem' => 'animais/pipoca.jpg',
             ],
             [
                 'especie' => 'Gato',
                 'nome' => 'Felix',
                 'descricao' => 'Um gato elegante e independente.',
-                'imagem' => 'felix.jpg',
+                'imagem' => 'animais/felix.jpg',
             ],
         ];
 

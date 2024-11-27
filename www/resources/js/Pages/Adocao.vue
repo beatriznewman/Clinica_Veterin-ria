@@ -88,20 +88,24 @@ onMounted(() => {
                     <div class="p-6 bg-white border-b border-gray-200">
                         <h3 class="font-bold text-lg mb-4">Lista de Animais para adoção</h3>
 
-                        <ul v-if="animaisSemDono.length > 0">
-                            <li v-for="animal in animaisSemDono" :key="animal.id" class="mt-4 flex justify-between items-center">
+                        <ul v-if="animaisSemDono.length > 0" class="space-y-4">
+                            <li v-for="animal in animaisSemDono" :key="animal.id" class="p-4 border border-gray-300 rounded-lg bg-gray-100 shadow-sm flex items-center justify-between">   
+                                <!-- Conteúdo do animal -->
                                 <div>
                                     <strong>Espécie:</strong> {{ animal.especie }} <br />
                                     <strong>Nome:</strong> {{ animal.nome }} <br />
-                                    <strong>Descricao:</strong> {{ animal.descricao }} <br />
+                                    <strong>Descrição:</strong> {{ animal.descricao }} <br />
                                     <!-- Exibindo a imagem do animal -->
-                                    <img :src="`/storage/${animal.imagem}`" alt="Imagem do animal" class="mt-2 w-32 h-32 object-cover rounded" />
+                                    <img :src="`/storage/${animal.imagem}`" alt="Imagem do animal" class="mt-2 w-32 h-32 object-cover rounded-lg border border-gray-200"/>
                                 </div>
-                                <button @click="abrirModal(animal)" class="px-4 py-2 bg-blue-500 text-white rounded">
+
+                                <!-- Botão "Adotar" ajustado -->
+                                <button @click="abrirModal(animal)" class="px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 transition" style="margin-left: auto; margin-right: 5rem;">
                                     Adotar
                                 </button>
                             </li>
                         </ul>
+
 
                         <p v-else class="text-gray-500">Nenhum animal para adoção encontrado.</p>
                     </div>
@@ -109,6 +113,7 @@ onMounted(() => {
             </div>
         </div>
 
+        <!-- Modal para confirmação de adoção -->
         <div v-if="mostrarModal" class="fixed z-10 inset-0 overflow-y-auto">
             <div class="flex items-center justify-center min-h-screen">
                 <div class="bg-white rounded-lg shadow-lg p-6">
@@ -117,13 +122,14 @@ onMounted(() => {
                     <p><strong>Nome:</strong> {{ animalSelecionado.nome }}</p>
                     <p><strong>Descrição:</strong> {{ animalSelecionado.descricao }}</p>
                     <!-- Exibindo a imagem do animal no modal -->
-                    <img :src="`/storage/${animalSelecionado.imagem}`" alt="Imagem do animal selecionado" class="mt-4 w-32 h-32 object-cover rounded" />
+                    <img :src="`/storage/${animalSelecionado.imagem}`" alt="Imagem do animal selecionado" class="mt-4 w-32 h-32 object-cover rounded-lg border border-gray-200"/>
 
                     <div class="mt-4 flex space-x-2">
                         <button @click="confirmarAdocao" class="px-3 py-1 bg-blue-500 text-white rounded" :disabled="isLoading">
                             <span v-if="isLoading">Processando...</span>
                             <span v-else>Confirmar Adoção</span>
                         </button>
+
                         <button @click="fecharModal" class="px-3 py-1 bg-gray-500 text-white rounded">
                             Cancelar
                         </button>
@@ -132,6 +138,7 @@ onMounted(() => {
             </div>
         </div>
 
+        <!-- Mensagens de sucesso e erro -->
         <div v-if="mensagemSucesso" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg">
             {{ mensagemSucesso }}
         </div>
@@ -143,5 +150,5 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Estilos adicionais conforme necessário */
+/* Estilos adicionais para as bordas */
 </style>

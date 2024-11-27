@@ -30,14 +30,14 @@
                                 <label for="especie" class="block text-left mb-1">Espécie:</label>
                                 <select v-model="animal.especie" required class="w-full px-3 py-2 border rounded">
                                     <option value="" disabled selected>Selecione uma espécie</option>
-                                    <option value="cachorro">Cachorro</option>
-                                    <option value="gato">Gato</option>
-                                    <option value="hamster">Hamster</option>
-                                    <option value="passaro">Pássaro</option>
+                                    <option value="Cachorro">Cachorro</option>
+                                    <option value="Gato">Gato</option>
+                                    <option value="Hamster">Hamster</option>
+                                    <option value="Passaro">Pássaro</option>
                                     <option value="Porquinho-da-india">Porquinho-da-índia</option>
-                                    <option value="peixe">Peixe</option>
-                                    <option value="coelho">Coelho</option>
-                                    <option value="outros">Outros</option>
+                                    <option value="Peixe">Peixe</option>
+                                    <option value="Coelho">Coelho</option>
+                                    <option value="Outros">Outros</option>
                                 </select>
                             </div>
 
